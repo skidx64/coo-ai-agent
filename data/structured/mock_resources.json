@@ -1,0 +1,200 @@
+{
+  "pediatricians": [
+    {
+      "id": 1,
+      "name": "Dr. Sarah Johnson",
+      "practice": "Broomfield Children's Health",
+      "address": "1234 Main St, Broomfield, CO 80020",
+      "phone": "(303) 555-0100",
+      "distance_miles": 1.2,
+      "rating": 4.9,
+      "accepting_new": true,
+      "specialties": [
+        "General Pediatrics",
+        "Newborn Care"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Dr. Michael Chen",
+      "practice": "Happy Kids Pediatrics",
+      "address": "5678 Oak Ave, Broomfield, CO 80021",
+      "phone": "(303) 555-0200",
+      "distance_miles": 2.5,
+      "rating": 4.7,
+      "accepting_new": false,
+      "specialties": [
+        "General Pediatrics",
+        "ADHD"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Dr. Emily Rodriguez",
+      "practice": "Sunshine Pediatrics",
+      "address": "789 Elm St, Broomfield, CO 80020",
+      "phone": "(303) 555-0300",
+      "distance_miles": 0.8,
+      "rating": 4.8,
+      "accepting_new": true,
+      "specialties": [
+        "General Pediatrics",
+        "Lactation Support"
+      ]
+    }
+  ],
+  "daycares": [
+    {
+      "id": 1,
+      "name": "Bright Beginnings Learning Center",
+      "address": "123 Learn Lane, Broomfield, CO",
+      "phone": "(303) 555-0400",
+      "distance_miles": 0.5,
+      "rating": 4.8,
+      "ages": "6 weeks - 5 years",
+      "monthly_cost": 1200,
+      "waitlist_months": 2,
+      "philosophy": "Montessori-inspired",
+      "features": [
+        "Organic meals included",
+        "Low teacher-child ratios (1:4 for infants)",
+        "Outdoor play space",
+        "Parent communication app"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Little Sprouts Academy",
+      "address": "456 Science St, Broomfield, CO",
+      "phone": "(303) 555-0500",
+      "distance_miles": 0.8,
+      "rating": 4.6,
+      "ages": "3 months - 5 years",
+      "monthly_cost": 1050,
+      "waitlist_months": 0,
+      "philosophy": "STEM-focused",
+      "features": [
+        "Bilingual teachers (Spanish)",
+        "Daily music classes",
+        "STEM activities",
+        "Affordable pricing"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nature Explorers Preschool",
+      "address": "789 Forest Way, Broomfield, CO",
+      "phone": "(303) 555-0600",
+      "distance_miles": 1.2,
+      "rating": 4.9,
+      "ages": "2.5 - 5 years",
+      "monthly_cost": 900,
+      "waitlist_months": 4,
+      "philosophy": "Nature-based learning",
+      "features": [
+        "Outdoor classroom",
+        "Garden program",
+        "Animals on site",
+        "Part-time options"
+      ]
+    }
+  ],
+  "classes": {
+    "swimming": [
+      {
+        "id": 1,
+        "name": "Goldfish Swim School",
+        "age_range": "4 months - 12 years",
+        "address": "789 Pool Blvd, Broomfield, CO",
+        "phone": "(303) 555-0700",
+        "cost": "$25-35 per session",
+        "schedule": "Multiple times daily",
+        "levels": [
+          "Infant",
+          "Toddler",
+          "Preschool",
+          "School-age"
+        ]
+      },
+      {
+        "id": 2,
+        "name": "SafeSplash Swim School",
+        "age_range": "6 months - 14 years",
+        "address": "234 Water St, Broomfield, CO",
+        "phone": "(303) 555-0710",
+        "cost": "$30-40 per session",
+        "schedule": "Weekends and evenings"
+      }
+    ],
+    "music": [
+      {
+        "id": 1,
+        "name": "Music Together",
+        "age_range": "0-5 years",
+        "address": "321 Melody Lane, Broomfield, CO",
+        "phone": "(303) 555-0800",
+        "cost": "$120 for 10-week session",
+        "schedule": "Multiple weekday mornings"
+      }
+    ],
+    "gym": [
+      {
+        "id": 1,
+        "name": "The Little Gym",
+        "age_range": "10 months - 12 years",
+        "address": "567 Tumble St, Broomfield, CO",
+        "phone": "(303) 555-0900",
+        "cost": "$95-130 per month",
+        "schedule": "Multiple days/times",
+        "focus": "Motor skills, confidence, coordination"
+      }
+    ]
+  },
+  "preschools": [
+    {
+      "id": 1,
+      "name": "Montessori Academy of Broomfield",
+      "type": "private",
+      "philosophy": "Montessori",
+      "ages": "2.5-6 years",
+      "address": "890 Learn Ave, Broomfield, CO",
+      "phone": "(303) 555-1000",
+      "tuition_monthly": 1200,
+      "application_deadline": "December 15 for fall enrollment",
+      "waitlist_typical": "6-12 months",
+      "rating": "4.9/5",
+      "distance_miles": 0.8
+    },
+    {
+      "id": 2,
+      "name": "Creative Kids Preschool",
+      "type": "private",
+      "philosophy": "Reggio Emilia",
+      "ages": "2-5 years",
+      "address": "456 Art Way, Broomfield, CO",
+      "phone": "(303) 555-1100",
+      "tuition_monthly": 950,
+      "application_deadline": "January 31 for fall enrollment",
+      "features": [
+        "Art-focused",
+        "Outdoor garden",
+        "Parent co-op"
+      ],
+      "rating": "4.7/5",
+      "distance_miles": 1.5
+    },
+    {
+      "id": 3,
+      "name": "Broomfield Heights Elementary PreK",
+      "type": "public",
+      "ages": "4-5 years (must turn 4 by Oct 1)",
+      "address": "1234 School Ave, Broomfield, CO",
+      "phone": "(303) 555-1200",
+      "tuition": "Free",
+      "application_period": "February 1 - March 15",
+      "lottery_date": "March 30",
+      "rating": "8/10 GreatSchools",
+      "distance_miles": 1.2
+    }
+  ]
+}

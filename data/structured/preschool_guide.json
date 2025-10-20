@@ -1,0 +1,57 @@
+{
+  "preschool_search_guide": {
+    "when_to_start": "Child age 2.5-3 years, 12-18 months before enrollment",
+    "application_season": "Typically Fall/Winter before enrollment year",
+    "tour_season": "September-November",
+    "decision_timeline": "December-January applications, March-April decisions"
+  },
+  "selection_criteria": [
+    "Philosophy (Montessori, Reggio Emilia, Play-based, Academic)",
+    "Schedule (Half-day vs Full-day)",
+    "Teacher-to-child ratio",
+    "Location and commute",
+    "Cost and financial aid availability",
+    "Curriculum and activities",
+    "Outdoor space and facilities",
+    "Parent involvement expectations",
+    "Wait list length"
+  ],
+  "application_requirements": {
+    "common_documents": [
+      "Child's birth certificate",
+      "Immunization records",
+      "Proof of residency",
+      "Parent contact information",
+      "Emergency contacts",
+      "Pediatrician information"
+    ],
+    "common_questions": [
+      "Is your child potty trained?",
+      "Any special needs or allergies?",
+      "Previous childcare experience?",
+      "Schedule preferences?",
+      "Parent participation availability?"
+    ]
+  },
+  "kindergarten_registration": {
+    "when_to_start": "Child age 4.5 years, Winter before enrollment",
+    "registration_opens": "Typically February 1st",
+    "registration_deadline": "Typically March 15th (varies by district)",
+    "requirements": [
+      "Child must turn 5 by October 1st (varies by state)",
+      "Birth certificate",
+      "Proof of residency",
+      "Immunization records",
+      "Vision and hearing screening"
+    ],
+    "readiness_assessment": "Some districts conduct assessments in Spring"
+  },
+  "state_deadlines": {
+    "colorado": {
+      "kindergarten_cutoff": "October 1st (must turn 5 by this date)",
+      "registration_period": "February - March",
+      "public_preschool": "Lottery-based, applications in February"
+    },
+    "note": "Deadlines vary by state and district - always check local requirements"
+  }
+}

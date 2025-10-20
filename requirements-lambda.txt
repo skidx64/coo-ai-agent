@@ -1,0 +1,35 @@
+# Complete Lambda requirements with all necessary dependencies
+# Installed for Linux Lambda environment
+
+# Core Framework
+fastapi==0.115.0
+mangum==0.18.0
+pydantic==2.9.0
+pydantic-settings==2.5.2
+python-multipart==0.0.12
+
+# Environment
+python-dotenv==1.0.1
+
+# AI & LLM (needed for imports even if using Bedrock)
+anthropic==0.39.0
+
+# AWS Services (boto3 already in Lambda, but botocore might be needed)
+# boto3 - skip, use Lambda's built-in
+
+# Database
+sqlalchemy==2.0.36
+
+# SMS
+twilio
+
+# Auth
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+python-dateutil==2.9.0
+
+# HTTP
+httpx==0.27.2
+
+# Note: Removed chromadb, sentence-transformers, pandas, numpy to keep size down
+# RAG will be disabled but AI chat will work via Bedrock

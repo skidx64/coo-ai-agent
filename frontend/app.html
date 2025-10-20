@@ -1,0 +1,3196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coo - AI Parenting Companion</title>
+    <style>
+        /* Coo AI Color Palette */
+        :root {
+            --coo-cream: #FBF7F0;           /* Main canvas background */
+            --coo-tan: #F3E8D9;             /* Secondary backgrounds */
+            --coo-yellow: #FFD84F;          /* Primary CTA & active states */
+            --coo-dark: #333333;            /* Text, icons, borders */
+            --coo-orange: #FF8C4F;          /* Success & accents */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--coo-cream);
+            min-height: 100vh;
+            color: var(--coo-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Landing Page */
+        .landing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background: var(--coo-cream);
+        }
+
+        .landing .logo {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        .landing h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: var(--coo-dark);
+            display: none;
+        }
+
+        .landing p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            max-width: 700px;
+            color: var(--coo-dark);
+            line-height: 1.6;
+        }
+
+        .landing .tagline {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            max-width: 700px;
+            color: var(--coo-dark);
+            line-height: 1.8;
+        }
+
+        .coo-name {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 2.5em;
+            animation: hatchAndBounce 2s ease-out infinite;
+        }
+
+        @keyframes hatchAndBounce {
+            0% {
+                transform: scale(0.8) rotate(-5deg);
+                opacity: 0.7;
+            }
+            15% {
+                transform: scale(1.1) rotate(3deg);
+                opacity: 1;
+            }
+            30% {
+                transform: scale(0.95) rotate(-2deg);
+            }
+            45% {
+                transform: scale(1.05) rotate(1deg);
+            }
+            60% {
+                transform: scale(0.98) rotate(0deg);
+            }
+            75%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .landing button {
+            background: var(--coo-yellow);
+            color: var(--coo-dark);
+            font-size: 1.2em;
+            padding: 20px 50px;
+            border: 2px solid var(--coo-dark);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .landing button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 216, 79, 0.4);
+            background: #FFC107;
+        }
+
+        /* App Container */
+        .app {
+            display: none;
+        }
+
+        .app.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            background: var(--coo-tan);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 2px solid var(--coo-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--coo-dark);
+            font-size: 2em;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header .family-name {
+            font-weight: 600;
+            color: var(--coo-dark);
+        }
+
+        .header button {
+            background: var(--coo-orange);
+            color: white;
+            border: 2px solid var(--coo-dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .header button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 140, 79, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+
+        /* Main Content - Full Width (for signup/verification) */
+        .main-content.full-width {
+            grid-template-columns: 1fr;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--coo-tan);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 2px solid var(--coo-dark);
+            height: fit-content;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar button {
+            background: transparent;
+            border: none;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--coo-dark);
+            transition: all 0.3s;
+        }
+
+        .sidebar button:hover {
+            background: rgba(255, 216, 79, 0.3);
+        }
+
+        .sidebar button.active {
+            background: var(--coo-yellow);
+            color: var(--coo-dark);
+            border: 2px solid var(--coo-dark);
+        }
+
+        /* Content Area */
+        .content {
+            background: var(--coo-cream);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 2px solid var(--coo-dark);
+            min-height: 600px;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--coo-dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--coo-dark);
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            color: var(--coo-dark);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--coo-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 216, 79, 0.2);
+        }
+
+        button.primary {
+            background: var(--coo-yellow);
+            color: var(--coo-dark);
+            border: 2px solid var(--coo-dark);
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 216, 79, 0.4);
+            background: #FFC107;
+        }
+
+        button.secondary {
+            background: var(--coo-tan);
+            color: var(--coo-dark);
+            border: 2px solid var(--coo-dark);
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button.secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--coo-tan);
+            border: 2px solid var(--coo-dark);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h3 {
+            color: var(--coo-dark);
+            margin-bottom: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Message List */
+        .message-item {
+            background: var(--coo-tan);
+            border-left: 4px solid var(--coo-yellow);
+            border: 2px solid var(--coo-dark);
+            border-left-width: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .message-item.outbound {
+            border-left-color: var(--coo-orange);
+        }
+
+        .message-item.inbound {
+            border-left-color: var(--coo-yellow);
+        }
+
+        .message-meta {
+            font-size: 0.9em;
+            color: var(--coo-dark);
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .message-content {
+            color: var(--coo-dark);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+            border: 2px solid var(--coo-dark);
+        }
+
+        .badge.free {
+            background: var(--coo-tan);
+            color: var(--coo-dark);
+        }
+        .badge.family {
+            background: var(--coo-yellow);
+            color: var(--coo-dark);
+        }
+        .badge.premium {
+            background: var(--coo-orange);
+            color: white;
+        }
+        .badge:not(.free):not(.family):not(.premium) {
+            background: var(--coo-tan);
+            color: var(--coo-dark);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--coo-dark);
+            opacity: 0.7;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--coo-dark);
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            color: var(--coo-dark);
+            margin-bottom: 10px;
+        }
+
+        /* Signup Form */
+        .signup-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--coo-tan);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid var(--coo-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-form h2 {
+            color: var(--coo-dark);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Subscription Tier Widgets */
+        .tier-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tier-widget {
+            background: white;
+            border: 3px solid var(--coo-dark);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .tier-widget:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tier-widget.selected {
+            background: var(--coo-yellow);
+            border-color: var(--coo-dark);
+            box-shadow: 0 6px 20px rgba(255, 216, 79, 0.4);
+        }
+
+        .tier-widget h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--coo-dark);
+        }
+
+        .tier-widget .tier-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--coo-dark);
+            margin: 10px 0;
+        }
+
+        .tier-widget .tier-features {
+            font-size: 0.9em;
+            color: var(--coo-dark);
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .tier-widget .tier-features div {
+            margin: 5px 0;
+        }
+
+        .tier-widget .tier-badge {
+            display: inline-block;
+            background: var(--coo-orange);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Test Mode Banner */
+        .test-mode-banner {
+            background: #FF6B6B;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            border: 2px solid var(--coo-dark);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .test-mode-banner.active {
+            display: block;
+        }
+
+        /* SMS Simulation Widget - Mobile Phone Style */
+        .sms-simulator {
+            max-width: 400px;
+            margin: 0 auto 30px auto;
+            background: #1c1c1e;
+            border-radius: 40px;
+            padding: 20px 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3),
+                        0 0 0 10px #2c2c2e,
+                        inset 0 0 0 2px rgba(255,255,255,0.1);
+            position: relative;
+            display: none;
+        }
+
+        .sms-simulator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #1c1c1e;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .sms-simulator::after {
+            content: '';
+            position: absolute;
+            top: 21px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 5px;
+            background: #3a3a3c;
+            border-radius: 3px;
+            z-index: 11;
+        }
+
+        .sms-simulator.active {
+            display: block;
+        }
+
+        .sms-simulator h3 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 1em;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .sms-conversation {
+            background: #000000;
+            border-radius: 20px;
+            padding: 20px 15px;
+            height: 650px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .sms-conversation::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sms-conversation::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .sms-conversation::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+
+        .sms-message {
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border-radius: 18px;
+            max-width: 75%;
+            clear: both;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .sms-message.sent {
+            background: #0b93f6;
+            color: white;
+            margin-left: auto;
+            float: right;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(11, 147, 246, 0.3);
+        }
+
+        .sms-message.received {
+            background: #3a3a3c;
+            color: white;
+            margin-right: auto;
+            float: left;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sms-message-meta {
+            font-size: 0.75em;
+            opacity: 0.6;
+            margin-top: 4px;
+            text-align: inherit;
+        }
+
+        .sms-message strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        /* Progress/Milestones Page Styles */
+        .progress-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .progress-header h2 {
+            font-size: 2em;
+            color: var(--coo-dark);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .progress-timeline {
+            position: relative;
+            margin: 40px 0;
+            padding: 40px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--coo-tan);
+            border: 2px solid var(--coo-dark);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--coo-yellow);
+            border-radius: 2px;
+            transition: width 0.8s ease-out;
+            z-index: 2;
+        }
+
+        .timeline-milestones {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3;
+        }
+
+        .milestone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .milestone-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid var(--coo-dark);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 4;
+        }
+
+        .milestone-image.active {
+            background: var(--coo-yellow);
+            border-color: var(--coo-orange);
+            box-shadow: 0 6px 20px rgba(255, 216, 79, 0.6);
+            transform: scale(1.2);
+        }
+
+        .milestone-image.completed {
+            background: var(--coo-orange);
+            color: white;
+        }
+
+        .milestone-label {
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--coo-dark);
+            font-size: 0.9em;
+        }
+
+        .progress-sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .progress-section {
+            background: var(--coo-tan);
+            border: 2px solid var(--coo-dark);
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 400px;
+        }
+
+        .progress-section h3 {
+            color: var(--coo-dark);
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            border-bottom: 3px solid var(--coo-yellow);
+            padding-bottom: 10px;
+        }
+
+        .progress-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .progress-section li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .progress-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--coo-orange);
+            font-weight: bold;
+        }
+
+        .view-report-btn {
+            display: block;
+            margin: 30px auto 0;
+            max-width: 300px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .landing h1 {
+                font-size: 2.5em;
+            }
+
+            .tier-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .milestone-image {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5em;
+            }
+
+            .timeline-milestones {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing" class="landing">
+        <img src="/static/assets/images/Coo.png" alt="Coo Logo" class="logo" onerror="this.style.display='none'">
+        <p class="tagline">
+            <span class="coo-name">Coo</span><br>
+            Your agentic AI companion bringing personalized guidance, gentle reminders, and milestone moments that celebrate your baby's journey straight to your phone.
+        </p>
+        <button onclick="showSignup()">Start My Journey</button>
+        <p style="margin-top: 20px; color: var(--coo-dark);">
+            Already have an account? <a href="#" onclick="showLogin(); return false;" style="color: var(--coo-orange); font-weight: 600; text-decoration: underline;">Login</a>
+        </p>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="app">
+        <div class="container">
+            <!-- Header (only shown when logged in) -->
+            <div class="header" id="appHeader" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="/static/assets/images/Coo.png" alt="Coo Logo" style="height: 50px; object-fit: contain;" onerror="this.style.display='none'">
+                    <h1>Coo</h1>
+                </div>
+                <div class="user-info">
+                    <span class="family-name" id="familyName">Loading...</span>
+                    <span class="badge" id="tierBadge">FREE</span>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-right: 10px;">
+                        <input type="checkbox" id="testModeToggle" onchange="toggleTestMode()" style="width: auto; cursor: pointer;">
+                        <span style="font-size: 0.9em; font-weight: 600;">Test Mode</span>
+                    </label>
+                    <button onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content" id="mainContent">
+                <!-- Sidebar Navigation (only shown when logged in) -->
+                <div class="sidebar" id="appSidebar" style="display: none;">
+                    <nav>
+                        <button class="active" onclick="showView('dashboard')">📊 Dashboard</button>
+                        <button onclick="showView('family')">👨‍👩‍👧 Family</button>
+                        <button onclick="showView('children')">👶 Children</button>
+                        <button onclick="showView('progress')">📈 Progress</button>
+                        <button data-test-only="true" onclick="showView('workflows')">🤖 AI Workflows</button>
+                        <button onclick="showView('messages')">💬 Messages</button>
+                    </nav>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content">
+                    <!-- Login View -->
+                    <div id="loginView" class="view">
+                        <div class="signup-form">
+                            <h2>Welcome Back to Coo</h2>
+                            <p style="text-align: center; color: #666; margin-bottom: 20px;">Login with your email or phone number</p>
+
+                            <div class="form-group">
+                                <label>Email or Phone Number *</label>
+                                <input type="text" id="loginPhone" placeholder="e.g., test@example.com or +1234567890" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Choose Login Method</label>
+                                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                    <button class="secondary" style="flex: 1;" onclick="selectLoginMethod('password')">Login with Password</button>
+                                    <button class="secondary" style="flex: 1;" onclick="selectLoginMethod('code')">Login with SMS Code</button>
+                                </div>
+                            </div>
+
+                            <div id="passwordLoginGroup" class="form-group" style="display: none;">
+                                <label>Password *</label>
+                                <input type="password" id="loginPassword" placeholder="Enter your password">
+                                <button class="primary" style="width: 100%; margin-top: 10px;" onclick="loginWithPassword()">Login</button>
+                            </div>
+
+                            <div id="codeLoginGroup" class="form-group" style="display: none;">
+                                <button class="primary" style="width: 100%; margin-bottom: 10px;" onclick="requestLoginCode()">Send SMS Code</button>
+                                <input type="text" id="loginCode" placeholder="Enter 6-digit code" maxlength="6" style="display: none;">
+                                <button class="primary" style="width: 100%; margin-top: 10px; display: none;" onclick="loginWithCode()">Verify & Login</button>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 20px;">
+                                <p style="color: #666;">Don't have an account? <a href="#" onclick="showSignup(); return false;" style="color: var(--coo-orange); font-weight: 600;">Sign Up</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signup View -->
+                    <div id="signupView" class="view">
+                        <div class="signup-form">
+                            <h2>Create Your Family Account</h2>
+                            <p style="text-align: center; color: #666; margin-bottom: 20px;">Get a 30-day free trial of the FAMILY plan!</p>
+
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="signupEmail" placeholder="e.g., sarah@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password *</label>
+                                <input type="password" id="signupPassword" placeholder="At least 8 characters" required minlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password *</label>
+                                <input type="password" id="signupPasswordConfirm" placeholder="Re-enter password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Primary Parent Name *</label>
+                                <input type="text" id="signupName" placeholder="e.g., Sarah Johnson" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number (with country code) *</label>
+                                <input type="tel" id="signupPhone" placeholder="e.g., +1234567890" required>
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" id="signupCity" placeholder="e.g., San Francisco">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" id="signupState" placeholder="e.g., CA">
+                            </div>
+                            <div class="form-group">
+                                <label>ZIP Code</label>
+                                <input type="text" id="signupZip" placeholder="e.g., 94102">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Choose Your Plan</label>
+                                <div class="tier-selector">
+                                    <div class="tier-widget" data-tier="FREE" onclick="selectTier('FREE')">
+                                        <h4>Free</h4>
+                                        <div class="tier-price">$0</div>
+                                        <div class="tier-features">
+                                            <div>1 Parent</div>
+                                            <div>1 Child</div>
+                                            <div>50 messages/year</div>
+                                        </div>
+                                    </div>
+                                    <div class="tier-widget selected" data-tier="FAMILY" onclick="selectTier('FAMILY')">
+                                        <h4>Family</h4>
+                                        <div class="tier-price">$4.99/yr</div>
+                                        <div class="tier-features">
+                                            <div>2 Parents</div>
+                                            <div>Up to 3 Children</div>
+                                            <div>100 messages/month</div>
+                                        </div>
+                                        <div class="tier-badge">30-DAY FREE TRIAL</div>
+                                    </div>
+                                    <div class="tier-widget" data-tier="PREMIUM" onclick="selectTier('PREMIUM')">
+                                        <h4>Premium</h4>
+                                        <div class="tier-price">$9.99/yr</div>
+                                        <div class="tier-features">
+                                            <div>10 Family Members</div>
+                                            <div>Up to 3 Children</div>
+                                            <div>1,000 messages/month</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="signupTier" value="FAMILY">
+                            </div>
+
+                            <div style="text-align: center;">
+                                <button class="primary" onclick="createFamily()">Create Account</button>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 20px;">
+                                <p style="color: #666;">Already have an account? <a href="#" onclick="showLogin(); return false;" style="color: var(--coo-orange); font-weight: 600;">Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone Verification View -->
+                    <div id="verificationView" class="view">
+                        <div class="signup-form">
+                            <h2>Verify Your Phone Number</h2>
+                            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                                We sent a 6-digit code to <strong id="verifyPhone"></strong>
+                            </p>
+                            <div class="form-group">
+                                <label>Verification Code *</label>
+                                <input type="text" id="verificationCode" placeholder="e.g., 123456" maxlength="6" required>
+                            </div>
+                            <button class="primary" onclick="verifyPhone()">Verify Phone</button>
+                            <button class="secondary" onclick="resendCode()" style="margin-top: 10px;">Resend Code</button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard View -->
+                    <div id="dashboardView" class="view">
+                        <h2>Family Dashboard</h2>
+
+                        <!-- Test Mode Banner -->
+                        <div id="testModeBanner" class="test-mode-banner">
+                            🧪 TEST MODE ACTIVE - Verification bypassed, AI workflows enabled without API calls
+                        </div>
+
+                        <!-- Account Status Card -->
+                        <div class="card">
+                            <h3>📋 Account Status</h3>
+                            <div id="accountStatus">Loading...</div>
+                        </div>
+
+                        <!-- Summary Cards -->
+                        <div class="card-grid">
+                            <div class="card">
+                                <h3>👨‍👩‍👧 Family Members</h3>
+                                <p id="memberCount">Loading...</p>
+                            </div>
+                            <div class="card">
+                                <h3>👶 Children</h3>
+                                <p id="childCount">Loading...</p>
+                            </div>
+                            <div class="card">
+                                <h3>💬 Messages</h3>
+                                <p id="messageStats">Loading...</p>
+                            </div>
+                        </div>
+
+                        <!-- Family Members Details -->
+                        <div id="dashboardMembersList"></div>
+
+                        <!-- Children Details -->
+                        <div id="childrenList"></div>
+                    </div>
+
+                    <!-- Family View -->
+                    <div id="familyView" class="view">
+                        <h2>Family Members</h2>
+                        <button class="primary" onclick="showAddMember()">+ Add Member</button>
+
+                        <div id="addMemberForm" style="display:none; margin-top: 20px;">
+                            <div class="card">
+                                <h3>Add Family Member</h3>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="memberName" placeholder="e.g., John">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="memberPhone" placeholder="+1234567890">
+                                </div>
+                                <div class="form-group">
+                                    <label>Relationship</label>
+                                    <select id="memberRelation">
+                                        <option value="mom">Mom</option>
+                                        <option value="dad">Dad</option>
+                                        <option value="grandparent">Grandparent</option>
+                                        <option value="caregiver">Caregiver</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <button class="primary" onclick="addMember()">Add Member</button>
+                                <button class="secondary" onclick="hideAddMember()">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div id="membersList"></div>
+                    </div>
+
+                    <!-- Children View -->
+                    <div id="childrenView" class="view">
+                        <h2>Children & Pregnancies</h2>
+                        <button class="primary" onclick="showAddChild()">+ Add Child</button>
+
+                        <div id="addChildForm" style="display:none; margin-top: 20px;">
+                            <div class="card">
+                                <h3>Add Child</h3>
+                                <div class="form-group">
+                                    <label>Name/Nickname</label>
+                                    <input type="text" id="childName" placeholder="e.g., Emma">
+                                </div>
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select id="childType" onchange="toggleDateFields()">
+                                        <option value="born">Born Child</option>
+                                        <option value="pregnancy">Pregnancy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="birthDateGroup">
+                                    <label>Birth Date</label>
+                                    <input type="date" id="childBirthDate">
+                                </div>
+                                <div class="form-group" id="dueDateGroup" style="display:none;">
+                                    <label>Due Date</label>
+                                    <input type="date" id="childDueDate">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select id="childGender">
+                                        <option value="">Prefer not to say</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <button class="primary" onclick="addChild()">Add</button>
+                                <button class="secondary" onclick="hideAddChild()">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div id="childrenDetailList"></div>
+                    </div>
+
+                    <!-- Messages View -->
+                    <div id="messagesView" class="view">
+                        <h2>Message History</h2>
+                        <p style="color: #666; margin-bottom: 20px;">Your SMS conversation history with Coo</p>
+                        <div id="messagesList"></div>
+                    </div>
+
+                    <!-- Workflows View -->
+                    <div id="workflowsView" class="view">
+                        <h2>AI Workflows</h2>
+                        <p style="color: #666; margin-bottom: 20px;">Run personalized AI workflows for guidance</p>
+
+                        <!-- SMS Simulator (only visible in test mode) -->
+                        <div id="smsSimulator" class="sms-simulator">
+                            <h3>📱 Messages</h3>
+
+                            <div class="sms-conversation" id="smsConversation">
+                                <div style="text-align: center; color: #666; padding: 40px 20px;">
+                                    Start a conversation...
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; padding: 0 5px;">
+                                <textarea id="smsMessageInput" rows="1" placeholder="iMessage" style="flex: 1; background: #3a3a3c; border: none; border-radius: 20px; padding: 12px 16px; color: white; font-size: 16px; resize: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;"></textarea>
+                                <button onclick="sendTestSMS()" style="background: #0b93f6; border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; align-self: flex-end; margin-bottom: 2px;">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 10L18 2L10 18L8 11L2 10Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Demo: Vaccine Notification Workflow -->
+                        <div style="background: linear-gradient(135deg, #FFF8E1 0%, #FFE8CC 100%); border: 3px solid #FFD84F; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <h3 style="margin: 0 0 10px 0; color: #333; font-size: 1.3em;">💉 Demo: Vaccine Notification Workflow</h3>
+                            <p style="font-size: 0.95em; color: #666; margin-bottom: 15px;">Simulate realistic vaccine alerts for your child (2-month checkup). Shows AI-powered pre & post-vaccine guidance.</p>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                <button class="primary" onclick="sendPreVaccineDemo()" style="flex: 1; min-width: 220px; font-size: 1.05em; padding: 15px 25px;">
+                                    📅 Send Pre-Vaccine Alert
+                                </button>
+                                <button class="primary" onclick="sendPostVaccineDemo()" style="flex: 1; min-width: 220px; background: #FF8C4F; font-size: 1.05em; padding: 15px 25px;">
+                                    🩹 Send Post-Vaccine Alert
+                                </button>
+                            </div>
+                            <p style="font-size: 0.8em; color: #999; margin: 12px 0 0 0; font-style: italic;">💡 These buttons send SMS to your phone simulating proactive notifications from Coo</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Progress View -->
+                    <div id="progressView" class="view">
+                        <div class="progress-header">
+                            <h2>BABY'S JOURNEY: 0-5 YEARS</h2>
+                            <p style="color: #666; font-size: 1.1em;">Track your child's growth and development milestones</p>
+                        </div>
+
+                        <!-- Child Selector -->
+                        <div id="childSelector" style="text-align: center; margin-bottom: 30px; display: none;">
+                            <label style="font-size: 1.1em; font-weight: 600; margin-right: 15px;">Select Child:</label>
+                            <select id="childSelectorDropdown" onchange="loadProgressForChild(this.value)" style="font-size: 1em; padding: 10px 20px; border: 2px solid var(--coo-dark); border-radius: 8px; background: white; cursor: pointer;">
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
+
+                        <!-- Progress Timeline -->
+                        <div class="progress-timeline">
+                            <div class="timeline-line">
+                                <div class="timeline-progress" id="timelineProgress" style="width: 0%;"></div>
+                            </div>
+                            <div class="timeline-milestones" id="timelineMilestones">
+                                <!-- Milestone markers will be added dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Progress Sections -->
+                        <div class="progress-sections">
+                            <div class="progress-section">
+                                <h3>Key Milestones</h3>
+                                <ul id="keyMilestones">
+                                    <li>Loading...</li>
+                                </ul>
+                            </div>
+                            <div class="progress-section">
+                                <h3>Growth Overview</h3>
+                                <ul id="growthOverview">
+                                    <li>Loading...</li>
+                                </ul>
+                            </div>
+                            <div class="progress-section">
+                                <h3>Parenting Tips</h3>
+                                <ul id="parentingTips">
+                                    <li>Loading...</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="primary view-report-btn" onclick="alert('Detailed PDF report coming soon!')">View Detailed Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://4p58s628h1.execute-api.us-east-1.amazonaws.com';
+        let currentFamily = null;
+        let testMode = false;
+
+        // Initialize test mode from localStorage
+        function initTestMode() {
+            const savedTestMode = localStorage.getItem('testMode');
+            if (savedTestMode === 'true') {
+                testMode = true;
+                document.getElementById('testModeToggle').checked = true;
+                showTestModeBanner();
+                updateTestModeUI(true);
+            } else {
+                // Ensure test-only elements are hidden by default
+                updateTestModeUI(false);
+            }
+        }
+
+        // Toggle test mode
+        function toggleTestMode() {
+            testMode = document.getElementById('testModeToggle').checked;
+            localStorage.setItem('testMode', testMode);
+
+            if (testMode) {
+                showTestModeBanner();
+                updateTestModeUI(true);
+                alert('🧪 Test Mode Enabled\n\n✓ Phone verification bypassed\n✓ AI workflows will use mock data\n✓ SMS simulation available on workflows page');
+            } else {
+                hideTestModeBanner();
+                updateTestModeUI(false);
+                alert('Test Mode Disabled - All verification requirements restored');
+                // Reload to enforce verification
+                location.reload();
+            }
+        }
+
+        // Update UI elements based on test mode
+        function updateTestModeUI(isTestMode) {
+            // Show/hide test-only elements (like AI Workflows button)
+            document.querySelectorAll('[data-test-only="true"]').forEach(el => {
+                el.style.display = isTestMode ? 'block' : 'none';
+            });
+        }
+
+        // Show test mode banner
+        function showTestModeBanner() {
+            const banner = document.getElementById('testModeBanner');
+            if (banner) {
+                banner.classList.add('active');
+            }
+        }
+
+        // Hide test mode banner
+        function hideTestModeBanner() {
+            const banner = document.getElementById('testModeBanner');
+            if (banner) {
+                banner.classList.remove('active');
+            }
+        }
+
+        // Show signup form
+        function showSignup() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('app').classList.add('active');
+            document.getElementById('mainContent').classList.add('full-width');
+
+            // Hide all views first
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('signupView').classList.add('active');
+        }
+
+        // Show login form
+        function showLogin() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('app').classList.add('active');
+            document.getElementById('mainContent').classList.add('full-width');
+
+            // Hide all views first
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('loginView').classList.add('active');
+        }
+
+        // Select login method
+        function selectLoginMethod(method) {
+            if (method === 'password') {
+                document.getElementById('passwordLoginGroup').style.display = 'block';
+                document.getElementById('codeLoginGroup').style.display = 'none';
+            } else {
+                document.getElementById('passwordLoginGroup').style.display = 'none';
+                document.getElementById('codeLoginGroup').style.display = 'block';
+            }
+        }
+
+        // Login with password
+        async function loginWithPassword() {
+            const emailOrPhone = document.getElementById('loginPhone').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!emailOrPhone || !password) {
+                alert('Please enter email/phone and password');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: emailOrPhone,  // Backend accepts email or phone in this field
+                        password: password
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+
+                    // Check if account doesn't exist
+                    if (error.detail && (error.detail.includes('not found') || error.detail.includes('Invalid credentials'))) {
+                        if (confirm('This email/phone number is not registered. Would you like to create an account?')) {
+                            showSignup();
+                            document.getElementById('signupPhone').value = emailOrPhone;
+                        }
+                        return;
+                    }
+
+                    alert('Login failed: ' + (error.detail || 'Invalid credentials'));
+                    return;
+                }
+
+                const data = await response.json();
+                localStorage.setItem('familyId', data.family_id);
+
+                // Hide login view before loading dashboard
+                document.getElementById('loginView').classList.remove('active');
+
+                // Login successful - load dashboard (verification not required)
+                alert('Login successful!');
+                loadDashboard();
+            } catch (error) {
+                alert('Error logging in: ' + error.message);
+            }
+        }
+
+        // Request login code via SMS
+        async function requestLoginCode() {
+            const phone = document.getElementById('loginPhone').value;
+
+            if (!phone) {
+                alert('Please enter your phone number');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/request-phone-verification`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        phone: phone
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert('Error: ' + (error.detail || 'Failed to send code'));
+                    return;
+                }
+
+                alert('Verification code sent! Check your SMS.');
+
+                // Show code input field
+                document.getElementById('loginCode').style.display = 'block';
+                document.querySelector('#codeLoginGroup button:last-of-type').style.display = 'block';
+            } catch (error) {
+                alert('Error sending code: ' + error.message);
+            }
+        }
+
+        // Login with SMS code
+        async function loginWithCode() {
+            const phone = document.getElementById('loginPhone').value;
+            const code = document.getElementById('loginCode').value;
+
+            if (!phone || !code || code.length !== 6) {
+                alert('Please enter the 6-digit verification code');
+                return;
+            }
+
+            try {
+                // First verify the code
+                const verifyResponse = await fetch(`${API_BASE}/api/auth/verify-phone`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        phone: phone,
+                        code: code
+                    })
+                });
+
+                if (!verifyResponse.ok) {
+                    const error = await verifyResponse.json();
+                    alert('Error: ' + (error.detail || 'Invalid verification code'));
+                    return;
+                }
+
+                // Then login by looking up the family
+                const lookupResponse = await fetch(`${API_BASE}/api/families/phone/${encodeURIComponent(phone)}`);
+
+                if (!lookupResponse.ok) {
+                    // Account not found - offer signup
+                    if (confirm('This phone number is not registered. Would you like to create an account?')) {
+                        showSignup();
+                        document.getElementById('signupPhone').value = phone;
+                    }
+                    return;
+                }
+
+                const data = await lookupResponse.json();
+                currentFamily = data.family;
+                localStorage.setItem('familyId', data.family_id);
+
+                alert('Login successful!');
+                loadDashboard();
+            } catch (error) {
+                alert('Error logging in: ' + error.message);
+            }
+        }
+
+        // Select subscription tier
+        function selectTier(tier) {
+            // Remove selected class from all widgets
+            document.querySelectorAll('.tier-widget').forEach(widget => {
+                widget.classList.remove('selected');
+            });
+
+            // Add selected class to clicked widget
+            const selectedWidget = document.querySelector(`.tier-widget[data-tier="${tier}"]`);
+            if (selectedWidget) {
+                selectedWidget.classList.add('selected');
+            }
+
+            // Update hidden input value
+            document.getElementById('signupTier').value = tier;
+        }
+
+        // Create family account
+        async function createFamily() {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+            const name = document.getElementById('signupName').value;
+            const phone = document.getElementById('signupPhone').value;
+            const city = document.getElementById('signupCity').value;
+            const state = document.getElementById('signupState').value;
+            const zip = document.getElementById('signupZip').value;
+            const tier = document.getElementById('signupTier').value;
+
+            // Validation
+            if (!email || !password || !name || !phone) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/signup`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        primary_email: email,
+                        password: password,
+                        primary_name: name,
+                        primary_phone: phone,
+                        city: city || null,
+                        state: state || null,
+                        zip_code: zip || null,
+                        subscription_tier: tier
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+
+                    // Check if phone already registered
+                    if (error.detail && error.detail.includes('already registered')) {
+                        if (confirm('This phone number is already registered. Would you like to login instead?')) {
+                            showLogin();
+                            document.getElementById('loginPhone').value = phone;
+                        }
+                        return;
+                    }
+
+                    alert('Error: ' + (error.detail || 'Failed to create account'));
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Clear current family - user must login after signup
+                currentFamily = null;
+                localStorage.removeItem('familyId');
+
+                // Show login page instead of verification view
+                document.getElementById('signupView').classList.remove('active');
+                document.getElementById('loginView').classList.add('active');
+
+                // Pre-fill phone number in login form
+                document.getElementById('loginPhone').value = phone;
+
+                alert('Account created successfully! A verification code has been sent to your phone. Please login to continue.');
+            } catch (error) {
+                alert('Error creating account: ' + error.message);
+            }
+        }
+
+        // Verify phone number
+        async function verifyPhone() {
+            const code = document.getElementById('verificationCode').value;
+            const phone = currentFamily.primary_phone;
+
+            if (!code || code.length !== 6) {
+                alert('Please enter the 6-digit verification code');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/verify-phone`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        phone: phone,
+                        code: code
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert('Error: ' + (error.detail || 'Invalid verification code'));
+                    return;
+                }
+
+                const data = await response.json();
+                alert(data.message);
+
+                // Phone verified, update current family and load dashboard
+                currentFamily.is_phone_verified = true;
+                document.getElementById('verificationView').classList.remove('active');
+                loadDashboard();
+            } catch (error) {
+                alert('Error verifying phone: ' + error.message);
+            }
+        }
+
+        // Resend verification code
+        async function resendCode() {
+            const phone = currentFamily.primary_phone;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/request-phone-verification`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        phone: phone
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert('Error: ' + (error.detail || 'Failed to resend code'));
+                    return;
+                }
+
+                alert('Verification code sent! Check your SMS.');
+            } catch (error) {
+                alert('Error resending code: ' + error.message);
+            }
+        }
+
+        // Load dashboard
+        async function loadDashboard() {
+            const familyId = localStorage.getItem('familyId');
+            if (!familyId) {
+                document.getElementById('landing').style.display = 'flex';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/families/${familyId}`);
+                const data = await response.json();
+
+                // Store the properly structured data
+                currentFamily = {
+                    id: data.family.id,
+                    primary_name: data.family.primary_name,
+                    primary_phone: data.family.primary_phone,
+                    primary_email: data.family.primary_email,
+                    subscription_tier: data.family.subscription_tier,
+                    is_phone_verified: data.family.is_phone_verified,
+                    is_email_verified: data.family.is_email_verified,
+                    is_trial_active: data.family.is_trial_active,
+                    trial_end_date: data.family.trial_end_date,
+                    members: data.members || [],
+                    children: data.children || []
+                };
+
+                document.getElementById('familyName').textContent = currentFamily.primary_name + "'s Family";
+                document.getElementById('tierBadge').textContent = currentFamily.subscription_tier;
+                document.getElementById('tierBadge').className = 'badge ' + currentFamily.subscription_tier.toLowerCase();
+
+                // Show header and sidebar for all logged in users (verification not required)
+                document.getElementById('appHeader').style.display = 'flex';
+                document.getElementById('appSidebar').style.display = 'block';
+                document.getElementById('mainContent').classList.remove('full-width');
+
+                // Initialize test mode UI if enabled
+                initTestMode();
+
+                document.getElementById('memberCount').textContent = `${currentFamily.members.length} members`;
+                document.getElementById('childCount').textContent = `${currentFamily.children.length} children`;
+
+                // Load account status
+                loadAccountStatus();
+
+                // Load message stats
+                loadMessageStats(familyId);
+
+                // Load dashboard members list
+                loadDashboardMembersList();
+
+                // Load children cards
+                loadChildrenCards();
+
+                document.getElementById('dashboardView').classList.add('active');
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                alert('Error loading dashboard. Please try logging in again.');
+            }
+        }
+
+        // Load message stats
+        async function loadMessageStats(familyId) {
+            try {
+                const response = await fetch(`${API_BASE}/api/messages/family/${familyId}/stats`);
+                const stats = await response.json();
+                document.getElementById('messageStats').textContent =
+                    `${stats.total_messages} total (${stats.last_30_days} this month)`;
+            } catch (error) {
+                document.getElementById('messageStats').textContent = '0 messages';
+            }
+        }
+
+        // Load account status
+        function loadAccountStatus() {
+            const statusDiv = document.getElementById('accountStatus');
+            const phoneVerified = currentFamily.is_phone_verified ? '✅ Verified' : '❌ Not Verified';
+            const emailVerified = currentFamily.is_email_verified ? '✅ Verified' : '❌ Not Verified';
+            const trialStatus = currentFamily.is_trial_active ? `🎉 Active Trial (until ${new Date(currentFamily.trial_end_date).toLocaleDateString()})` : 'No active trial';
+
+            statusDiv.innerHTML = `
+                <p><strong>Email:</strong> ${currentFamily.primary_email} ${emailVerified}</p>
+                <p><strong>Phone:</strong> ${currentFamily.primary_phone} ${phoneVerified}</p>
+                <p><strong>Subscription:</strong> ${currentFamily.subscription_tier}</p>
+                <p><strong>Trial Status:</strong> ${trialStatus}</p>
+            `;
+        }
+
+        // Load dashboard members list
+        function loadDashboardMembersList() {
+            const container = document.getElementById('dashboardMembersList');
+
+            if (!currentFamily.members || currentFamily.members.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = '<h3 style="margin-top: 30px;">👨‍👩‍👧 Family Members</h3>';
+            currentFamily.members.forEach(member => {
+                const primaryBadge = member.is_primary ? '<span class="badge">PRIMARY</span>' : '';
+                container.innerHTML += `
+                    <div class="card">
+                        <h3>${member.name} ${primaryBadge}</h3>
+                        <p><strong>Phone:</strong> ${member.phone}</p>
+                        <p><strong>Relationship:</strong> ${member.relationship_type}</p>
+                        <p><strong>Can ask questions:</strong> ${member.can_ask_questions ? 'Yes' : 'No'}</p>
+                        <p><strong>Receives proactive messages:</strong> ${member.receive_proactive ? 'Yes' : 'No'}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Load children cards
+        function loadChildrenCards() {
+            const container = document.getElementById('childrenList');
+            if (!currentFamily.children || currentFamily.children.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No children added yet</h3><p>Add your first child to get started!</p></div>';
+                return;
+            }
+
+            container.innerHTML = '<h3 style="margin-top: 30px;">👶 Your Children</h3>';
+            currentFamily.children.forEach(child => {
+                let ageInfo = '';
+                if (child.is_pregnancy) {
+                    const dueDate = new Date(child.due_date);
+                    const today = new Date();
+                    const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+                    const weeksPregnant = Math.max(0, 40 - Math.floor(daysUntilDue / 7));
+                    ageInfo = `<p><strong>Status:</strong> Pregnancy (Week ${weeksPregnant})</p>
+                               <p><strong>Due Date:</strong> ${dueDate.toLocaleDateString()} (${daysUntilDue} days)</p>`;
+                } else {
+                    const birthDate = new Date(child.birth_date);
+                    const today = new Date();
+                    const ageDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+                    const ageMonths = Math.floor(ageDays / 30);
+                    const ageYears = Math.floor(ageDays / 365);
+
+                    let ageDisplay = '';
+                    if (ageYears >= 2) {
+                        ageDisplay = `${ageYears} years old`;
+                    } else if (ageMonths >= 2) {
+                        ageDisplay = `${ageMonths} months old`;
+                    } else {
+                        ageDisplay = `${ageDays} days old`;
+                    }
+
+                    ageInfo = `<p><strong>Status:</strong> Born</p>
+                               <p><strong>Birth Date:</strong> ${birthDate.toLocaleDateString()}</p>
+                               <p><strong>Age:</strong> ${ageDisplay}</p>`;
+                }
+
+                container.innerHTML += `
+                    <div class="card">
+                        <h3>${child.name}</h3>
+                        ${ageInfo}
+                        <p><strong>Gender:</strong> ${child.gender || 'Not specified'}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Show view
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(viewName + 'View').classList.add('active');
+
+            if (viewName === 'family') loadFamilyMembers();
+            if (viewName === 'children') loadChildrenDetail();
+            if (viewName === 'messages') loadMessages();
+            if (viewName === 'progress') loadProgress();
+
+            // Show SMS simulator when viewing workflows in test mode
+            if (viewName === 'workflows') {
+                updateSMSSimulatorVisibility();
+            }
+        }
+
+        // Update SMS simulator visibility based on test mode
+        function updateSMSSimulatorVisibility() {
+            const simulator = document.getElementById('smsSimulator');
+            if (simulator) {
+                if (testMode) {
+                    simulator.classList.add('active');
+                } else {
+                    simulator.classList.remove('active');
+                }
+            }
+        }
+
+        // Load family members
+        async function loadFamilyMembers() {
+            const container = document.getElementById('membersList');
+            container.innerHTML = '<div class="loading">Loading members</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/families/${currentFamily.id}/members`);
+                const members = await response.json();
+
+                if (members.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><h3>No additional members</h3></div>';
+                    return;
+                }
+
+                container.innerHTML = '<h3 style="margin-top: 30px;">Current Members</h3>';
+                members.forEach(member => {
+                    container.innerHTML += `
+                        <div class="card">
+                            <h3>${member.name} ${member.is_primary ? '(Primary)' : ''}</h3>
+                            <p>Phone: ${member.phone}</p>
+                            <p>Relationship: ${member.relationship_type}</p>
+                            <p>Receives updates: ${member.receive_proactive ? 'Yes' : 'No'}</p>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                container.innerHTML = '<div class="empty-state"><h3>Error loading members</h3></div>';
+            }
+        }
+
+        // Show/hide add member form
+        function showAddMember() {
+            document.getElementById('addMemberForm').style.display = 'block';
+        }
+
+        function hideAddMember() {
+            document.getElementById('addMemberForm').style.display = 'none';
+        }
+
+        // Add member
+        async function addMember() {
+            // Check verification first
+            if (!checkVerification('add family members')) {
+                return;
+            }
+
+            const name = document.getElementById('memberName').value;
+            const phone = document.getElementById('memberPhone').value;
+            const relation = document.getElementById('memberRelation').value;
+
+            if (!name || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Check subscription limits
+            const memberLimits = {
+                'FREE': 1,
+                'FAMILY': 2,
+                'PREMIUM': 10
+            };
+            const maxMembers = memberLimits[currentFamily.subscription_tier] || 1;
+
+            if (currentFamily.members.length >= maxMembers) {
+                alert(`Your ${currentFamily.subscription_tier} plan allows maximum ${maxMembers} family members. Please upgrade to add more.`);
+                return;
+            }
+
+            try {
+                await fetch(`${API_BASE}/api/families/members`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        family_id: currentFamily.id,
+                        name: name,
+                        phone: phone,
+                        relationship_type: relation,
+                        receive_proactive: true
+                    })
+                });
+
+                hideAddMember();
+                loadFamilyMembers();
+
+                // Clear form
+                document.getElementById('memberName').value = '';
+                document.getElementById('memberPhone').value = '';
+            } catch (error) {
+                alert('Error adding member: ' + error.message);
+            }
+        }
+
+        // Load children detail
+        function loadChildrenDetail() {
+            const container = document.getElementById('childrenDetailList');
+            if (!currentFamily.children || currentFamily.children.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No children added yet</h3></div>';
+                return;
+            }
+
+            container.innerHTML = '<h3 style="margin-top: 30px;">Your Children</h3>';
+            currentFamily.children.forEach(child => {
+                const age = child.is_pregnancy ?
+                    `Pregnancy - Due ${child.due_date}` :
+                    `Born ${child.birth_date}`;
+
+                container.innerHTML += `
+                    <div class="card">
+                        <h3>${child.name}</h3>
+                        <p><strong>Status:</strong> ${child.is_pregnancy ? 'Pregnancy' : 'Born'}</p>
+                        <p><strong>Date:</strong> ${age}</p>
+                        <p><strong>Gender:</strong> ${child.gender || 'Not specified'}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Toggle date fields
+        function toggleDateFields() {
+            const type = document.getElementById('childType').value;
+            document.getElementById('birthDateGroup').style.display = type === 'born' ? 'block' : 'none';
+            document.getElementById('dueDateGroup').style.display = type === 'pregnancy' ? 'block' : 'none';
+        }
+
+        // Show/hide add child form
+        function showAddChild() {
+            document.getElementById('addChildForm').style.display = 'block';
+        }
+
+        function hideAddChild() {
+            document.getElementById('addChildForm').style.display = 'none';
+        }
+
+        // Add child
+        async function addChild() {
+            // Check verification first
+            if (!checkVerification('add children')) {
+                return;
+            }
+
+            const name = document.getElementById('childName').value;
+            const type = document.getElementById('childType').value;
+            const birthDate = document.getElementById('childBirthDate').value;
+            const dueDate = document.getElementById('childDueDate').value;
+            const gender = document.getElementById('childGender').value;
+
+            if (!name || (type === 'born' && !birthDate) || (type === 'pregnancy' && !dueDate)) {
+                alert('Please fill in required fields');
+                return;
+            }
+
+            // Check subscription limits
+            const childLimits = {
+                'FREE': 1,
+                'FAMILY': 3,
+                'PREMIUM': 3
+            };
+            const maxChildren = childLimits[currentFamily.subscription_tier] || 1;
+
+            if (currentFamily.children.length >= maxChildren) {
+                alert(`Your ${currentFamily.subscription_tier} plan allows maximum ${maxChildren} children. Please upgrade to add more.`);
+                return;
+            }
+
+            try {
+                await fetch(`${API_BASE}/api/children/`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        family_id: currentFamily.id,
+                        name: name,
+                        birth_date: type === 'born' ? birthDate : null,
+                        due_date: type === 'pregnancy' ? dueDate : null,
+                        is_pregnancy: type === 'pregnancy',
+                        gender: gender || null
+                    })
+                });
+
+                hideAddChild();
+
+                // Reload family data with proper structure
+                const response = await fetch(`${API_BASE}/api/families/${currentFamily.id}`);
+                const data = await response.json();
+
+                currentFamily.members = data.members || [];
+                currentFamily.children = data.children || [];
+
+                // Update counts on dashboard
+                document.getElementById('memberCount').textContent = `${currentFamily.members.length} members`;
+                document.getElementById('childCount').textContent = `${currentFamily.children.length} children`;
+
+                loadChildrenDetail();
+
+                // Clear form
+                document.getElementById('childName').value = '';
+                document.getElementById('childBirthDate').value = '';
+                document.getElementById('childDueDate').value = '';
+            } catch (error) {
+                alert('Error adding child: ' + error.message);
+            }
+        }
+
+        // Load messages
+        async function loadMessages() {
+            const container = document.getElementById('messagesList');
+            container.innerHTML = '<div class="loading">Loading messages</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/messages/family/${currentFamily.id}?skip=0&limit=50`);
+                const data = await response.json();
+
+                if (!data.messages || data.messages.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><h3>No messages yet</h3><p>Start texting Coo to see your conversation history here!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                data.messages.forEach(msg => {
+                    const date = new Date(msg.timestamp).toLocaleString();
+                    container.innerHTML += `
+                        <div class="message-item ${msg.direction}">
+                            <div class="message-meta">
+                                <strong>${msg.direction === 'inbound' ? 'You' : 'Coo'}</strong> • ${date}
+                            </div>
+                            <div class="message-content">${msg.content}</div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                container.innerHTML = '<div class="empty-state"><h3>Error loading messages</h3></div>';
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('familyId');
+            currentFamily = null;
+            location.reload();
+        }
+
+        // Check verification before critical actions
+        function checkVerification(actionName) {
+            // Bypass check if test mode is enabled
+            if (testMode) {
+                return true;
+            }
+
+            if (!currentFamily || !currentFamily.is_phone_verified) {
+                alert('Please verify your phone number first to ' + actionName);
+                return false;
+            }
+            return true;
+        }
+
+        // Initialize app
+        window.addEventListener('load', () => {
+            // Clear any stale data first
+            const familyId = localStorage.getItem('familyId');
+
+            // Only auto-login if we have a familyId
+            if (familyId) {
+                document.getElementById('landing').style.display = 'none';
+                document.getElementById('app').classList.add('active');
+                loadDashboard();
+            } else {
+                // Show landing page for new users
+                document.getElementById('landing').style.display = 'flex';
+                document.getElementById('app').classList.remove('active');
+            }
+        });
+
+        // Workflow execution
+        async function showWorkflowForm(type) {
+            // Bypass verification check in test mode
+            if (!testMode && (!currentFamily || !currentFamily.is_phone_verified)) {
+                alert('Please verify your phone number first.');
+                return;
+            }
+
+            // Check if they have children for child-specific workflows (skip in test mode)
+            if (!testMode && ['vaccines', 'milestones', 'activities', 'preschool'].includes(type) && currentFamily.children.length === 0) {
+                alert('Please add a child first to use this workflow.');
+                return;
+            }
+
+            // For pregnancy workflow, check if they have a pregnancy (skip in test mode)
+            if (!testMode && type === 'pregnancy') {
+                const hasPregnancy = currentFamily.children.some(c => c.is_pregnancy);
+                if (!hasPregnancy) {
+                    alert('Please add a pregnancy to use this workflow.');
+                    return;
+                }
+            }
+
+            // Simple workflow execution (can be expanded with forms)
+            const workflowData = await promptWorkflowData(type);
+            if (!workflowData) return;
+
+            // In test mode, use mock data instead of API call
+            if (testMode) {
+                displayWorkflowResult(type, getMockWorkflowResult(type, workflowData));
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/workflows/${type}`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        family_id: currentFamily.id,
+                        ...workflowData
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert('Workflow error: ' + (error.detail || 'Failed to execute'));
+                    return;
+                }
+
+                const result = await response.json();
+                displayWorkflowResult(type, result);
+            } catch (error) {
+                alert('Error running workflow: ' + error.message);
+            }
+        }
+
+        // Prompt for workflow data
+        function promptWorkflowData(type) {
+            switch(type) {
+                case 'pregnancy':
+                    const weeks = prompt('How many weeks pregnant?', '20');
+                    if (!weeks) return null;
+                    return {
+                        weeks_pregnant: parseInt(weeks),
+                        concerns: prompt('Any concerns? (optional)', '') || null
+                    };
+
+                case 'vaccines':
+                case 'milestones':
+                case 'activities':
+                case 'preschool':
+                    // Get first child for simplicity
+                    const child = currentFamily.children.find(c => !c.is_pregnancy);
+
+                    // In test mode, use default age if no child
+                    let ageMonths = 6; // Default to 6 months
+                    let childId = null;
+
+                    if (child) {
+                        // Calculate age in months
+                        const birthDate = new Date(child.birth_date);
+                        ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+                        childId = child.id;
+                    } else if (!testMode) {
+                        alert('No born children found.');
+                        return null;
+                    }
+
+                    if (type === 'vaccines') {
+                        return {
+                            child_id: childId,
+                            child_age_months: ageMonths,
+                            concerns: prompt('Any vaccine concerns? (optional)', '') || null,
+                            completed_vaccines: []
+                        };
+                    } else if (type === 'milestones') {
+                        return {
+                            child_id: childId,
+                            child_age_months: ageMonths,
+                            current_abilities: prompt('What can your child do? (optional)', '') || null,
+                            concerns: prompt('Any concerns? (optional)', '') || null
+                        };
+                    } else if (type === 'activities') {
+                        return {
+                            child_id: childId,
+                            child_age_months: ageMonths,
+                            interests: prompt('Child\'s interests? (optional)', '') || null,
+                            goals: prompt('Development goals? (optional)', 'general development') || 'general development'
+                        };
+                    } else if (type === 'preschool') {
+                        return {
+                            child_id: childId,
+                            child_age_months: ageMonths,
+                            current_skills: prompt('Current skills? (optional)', '') || null,
+                            target_start_date: prompt('Target start date (YYYY-MM)? (optional)', '') || null
+                        };
+                    }
+                    break;
+
+                default:
+                    return null;
+            }
+        }
+
+        // Get mock workflow result for test mode
+        function getMockWorkflowResult(type, workflowData) {
+            const mockResults = {
+                pregnancy: {
+                    steps: [
+                        {
+                            step_name: "Week-by-Week Guidance",
+                            output: `🤰 **Week ${workflowData.weeks_pregnant} Pregnancy Update**\n\n**Baby's Development:**\n- Your baby is about the size of a bell pepper\n- Major organs are continuing to develop\n- Baby can now hear sounds from outside the womb\n\n**What to Expect:**\n- You may feel increased movement\n- Possible back pain - practice good posture\n- Energy levels may fluctuate\n\n**Action Items:**\n✓ Schedule your next prenatal checkup\n✓ Continue prenatal vitamins\n✓ Practice relaxation techniques\n✓ Stay hydrated (8-10 glasses daily)\n\n[TEST MODE - Mock Data]`
+                        }
+                    ]
+                },
+                vaccines: {
+                    steps: [
+                        {
+                            step_name: "Vaccine Schedule",
+                            output: `💉 **Vaccine Plan for ${workflowData.child_age_months} Month Old**\n\n**Due Now:**\n- DTaP (Diphtheria, Tetanus, Pertussis)\n- IPV (Polio)\n- Hib (Haemophilus influenzae)\n- PCV13 (Pneumococcal)\n- Rotavirus\n\n**Upcoming (Next 2 months):**\n- Hepatitis B dose 2\n- Influenza (seasonal)\n\n**What to Expect:**\n- Mild fever possible (24-48 hours)\n- Soreness at injection site\n- Baby may be fussy\n\n**Tips:**\n✓ Bring comfort items to appointment\n✓ Acetaminophen on hand if needed\n✓ Extra cuddles help!\n\n[TEST MODE - Mock Data]`
+                        }
+                    ]
+                },
+                milestones: {
+                    steps: [
+                        {
+                            step_name: "Developmental Assessment",
+                            output: `📈 **Milestone Check for ${workflowData.child_age_months} Month Old**\n\n**Physical Development:**\n✓ Rolling over both ways\n✓ Sitting with support\n✓ Reaching for toys\n\n**Cognitive Development:**\n✓ Recognizing familiar faces\n✓ Responding to own name\n✓ Exploring objects with hands and mouth\n\n**Social/Emotional:**\n✓ Smiling and laughing\n✓ Showing excitement\n✓ Beginning to show preferences\n\n**What to Encourage:**\n- Tummy time (15-20 min daily)\n- Reading books together\n- Playing peek-a-boo\n- Introducing safe textures\n\n**Red Flags (Consult pediatrician if):**\n- Not making eye contact\n- Not responding to sounds\n- Very stiff or very floppy\n\n[TEST MODE - Mock Data]`
+                        }
+                    ]
+                },
+                activities: {
+                    steps: [
+                        {
+                            step_name: "Activity Recommendations",
+                            output: `🎨 **Fun Activities for ${workflowData.child_age_months} Month Old**\n\n**This Week's Activities:**\n\n**Monday - Sensory Play:**\n- Water play in bathtub\n- Touch different textures (soft, rough, smooth)\n- Listen to various sounds\n\n**Wednesday - Physical Development:**\n- Supervised tummy time\n- Reaching for colorful toys\n- Baby yoga stretches\n\n**Friday - Cognitive Skills:**\n- Read picture books\n- Sing songs with hand motions\n- Stacking soft blocks\n\n**Daily Routine Ideas:**\n✓ Morning: Music and movement\n✓ Afternoon: Outdoor time (weather permitting)\n✓ Evening: Quiet reading time\n\n**Safety Tips:**\n⚠ Always supervise activities\n⚠ Age-appropriate toys only\n⚠ Clean play area regularly\n\n[TEST MODE - Mock Data]`
+                        }
+                    ]
+                }
+            };
+
+            return mockResults[type] || {
+                steps: [{
+                    step_name: "Test Mode Result",
+                    output: "This is mock data for testing. In production, real AI-generated content will appear here.\n\n[TEST MODE - Mock Data]"
+                }]
+            };
+        }
+
+        // Display workflow result
+        function displayWorkflowResult(type, result) {
+            const container = document.getElementById('workflowResult');
+            let html = `<div class="card"><h2>🤖 ${type.toUpperCase()} Workflow Results</h2>`;
+
+            if (result.steps) {
+                result.steps.forEach((step, index) => {
+                    html += `<div class="card" style="margin: 15px 0;">
+                        <h3>Step ${index + 1}: ${step.step_name || 'Processing'}</h3>
+                        <pre style="white-space: pre-wrap; font-family: inherit;">${step.output || JSON.stringify(step, null, 2)}</pre>
+                    </div>`;
+                });
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // SMS Simulator Functions
+
+        // Conversation state for multi-turn interactions
+        let conversationState = {
+            awaitingResponse: null, // 'child_name', 'child_birthdate', 'member_name', etc.
+            context: {}, // Store context data
+            conversationHistory: [] // Store last 5 messages for context
+        };
+
+        // Save child to database via API
+        async function saveChildToDatabase(childData) {
+            try {
+                const familyId = currentFamily?.id;
+                if (!familyId) {
+                    addSMSMessage(`❌ Error: No family found. Please reload and try again.`, 'received');
+                    conversationState.awaitingResponse = null;
+                    return;
+                }
+
+                const payload = {
+                    family_id: familyId,
+                    name: childData.name,
+                    is_pregnancy: childData.is_pregnancy || false,
+                    gender: childData.gender || null
+                };
+
+                if (childData.is_pregnancy) {
+                    payload.due_date = childData.due_date || null;
+                } else {
+                    payload.birth_date = childData.birth_date || null;
+                }
+
+                const response = await fetch(`/api/children/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    addSMSMessage(`❌ Error saving child: ${error.detail || 'Unknown error'}`, 'received');
+                } else {
+                    const savedChild = await response.json();
+                    const ageInfo = childData.is_pregnancy ?
+                        `due ${childData.due_date || 'date TBD'}` :
+                        `born ${childData.birth_date || 'date TBD'}`;
+
+                    addSMSMessage(`✅ Success! ${childData.name} has been added to your family (${ageInfo}).\n\nRefresh the page to see ${childData.name} in your dashboard!\n\nAnything else I can help with?`, 'received');
+
+                    // Refresh family data
+                    setTimeout(() => loadFamilyData(), 1000);
+                }
+            } catch (error) {
+                addSMSMessage(`❌ Error: ${error.message}. Please try again.`, 'received');
+            } finally {
+                conversationState.awaitingResponse = null;
+                conversationState.context = {};
+            }
+        }
+
+        // Save family member to database via API
+        async function saveMemberToDatabase(memberData) {
+            try {
+                const familyId = currentFamily?.id;
+                if (!familyId) {
+                    addSMSMessage(`❌ Error: No family found. Please reload and try again.`, 'received');
+                    conversationState.awaitingResponse = null;
+                    return;
+                }
+
+                const payload = {
+                    name: memberData.name,
+                    phone: memberData.phone || null,
+                    relationship_type: memberData.relationship
+                };
+
+                const response = await fetch(`/api/families/${familyId}/add-member`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    addSMSMessage(`❌ Error saving family member: ${error.detail || 'Unknown error'}`, 'received');
+                } else {
+                    const savedMember = await response.json();
+                    addSMSMessage(`✅ Success! ${memberData.name} (${memberData.relationship}) has been added to your family${memberData.phone ? ' with phone ' + memberData.phone : ''}.\n\nRefresh the page to see ${memberData.name} in your family members!\n\nAnything else I can help with?`, 'received');
+
+                    // Refresh family data
+                    setTimeout(() => loadFamilyData(), 1000);
+                }
+            } catch (error) {
+                addSMSMessage(`❌ Error: ${error.message}. Please try again.`, 'received');
+            } finally {
+                conversationState.awaitingResponse = null;
+                conversationState.context = {};
+            }
+        }
+
+        // Send test SMS
+        function sendTestSMS() {
+            const messageInput = document.getElementById('smsMessageInput');
+            const message = messageInput.value.trim();
+
+            if (!message) {
+                alert('Please enter a message to send');
+                return;
+            }
+
+            // Add sent message to conversation
+            addSMSMessage(message, 'sent');
+
+            // Clear input
+            messageInput.value = '';
+
+            // Simulate Twilio response after 1 second
+            setTimeout(() => {
+                const response = generateMockTwilioResponse(message);
+                // Only add message if response is not null (AI calls handle their own responses)
+                if (response !== null && response !== undefined) {
+                    addSMSMessage(response, 'received');
+                }
+            }, 1000);
+        }
+
+        // Add SMS message to conversation
+        function addSMSMessage(content, type) {
+            const conversation = document.getElementById('smsConversation');
+
+            // Remove "no messages" placeholder if present
+            if (conversation.querySelector('[style*="text-align: center"]')) {
+                conversation.innerHTML = '';
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `sms-message ${type}`;
+
+            const timestamp = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            const senderName = type === 'sent' ? (currentFamily?.primary_name || 'You') : 'Coo';
+
+            messageDiv.innerHTML = `
+                <div><strong>${senderName}</strong></div>
+                <div style="margin: 5px 0;">${content}</div>
+                <div class="sms-message-meta">${timestamp}</div>
+            `;
+
+            conversation.appendChild(messageDiv);
+
+            // Clear floats
+            const clearDiv = document.createElement('div');
+            clearDiv.style.clear = 'both';
+            conversation.appendChild(clearDiv);
+
+            // Scroll to bottom
+            conversation.scrollTop = conversation.scrollHeight;
+        }
+
+        // Handle multi-turn conversation flows
+        function handleConversationFlow(userMessage, lowerMsg) {
+            const state = conversationState.awaitingResponse;
+            const ctx = conversationState.context;
+
+            // === ADD CHILD FLOW ===
+            if (state === 'child_type') {
+                if (lowerMsg.includes('born') || lowerMsg === '1') {
+                    ctx.is_pregnancy = false;
+                    conversationState.awaitingResponse = 'child_name';
+                    return `Perfect! 👶\n\nWhat's your child's name or nickname?`;
+                } else if (lowerMsg.includes('pregnan') || lowerMsg === '2') {
+                    ctx.is_pregnancy = true;
+                    conversationState.awaitingResponse = 'child_name';
+                    return `Congratulations! 🤰\n\nWhat would you like to call this pregnancy? (e.g., "Baby Johnson" or a nickname)`;
+                } else {
+                    return `Please reply with "born" for a born child or "pregnancy" for an expected baby.`;
+                }
+            }
+
+            if (state === 'child_name') {
+                ctx.name = userMessage.trim();
+                if (!ctx.name) {
+                    return `I need a name to continue. What would you like to call ${ctx.is_pregnancy ? 'this pregnancy' : 'your child'}?`;
+                }
+
+                if (ctx.is_pregnancy) {
+                    conversationState.awaitingResponse = 'child_due_date';
+                    return `Great! I'll add ${ctx.name} as a pregnancy. 🤰\n\nWhat's the due date? (Format: YYYY-MM-DD or MM/DD/YYYY)`;
+                } else {
+                    conversationState.awaitingResponse = 'child_birth_date';
+                    return `Wonderful! ${ctx.name} 💕\n\nWhat's ${ctx.name}'s birth date? (Format: YYYY-MM-DD or MM/DD/YYYY)`;
+                }
+            }
+
+            if (state === 'child_birth_date') {
+                // Allow skip
+                if (lowerMsg === 'skip' || lowerMsg === 'dont know' || lowerMsg === 'unknown' || lowerMsg === 'not sure') {
+                    conversationState.awaitingResponse = 'child_gender';
+                    return `No problem! We can skip the birth date for now.\n\nWhat's ${ctx.name}'s gender?\n\nReply: "male", "female", or "skip"`;
+                }
+
+                const birthDate = parseDateInput(userMessage);
+                if (!birthDate) {
+                    return `I couldn't understand that date. Please use format: YYYY-MM-DD or MM/DD/YYYY\n\nExample: 2023-06-15 or 06/15/2023\n\nOr reply "skip" to skip this.`;
+                }
+                ctx.birth_date = birthDate;
+                conversationState.awaitingResponse = 'child_gender';
+                return `Got it! Birth date: ${birthDate} 📅\n\nWhat's ${ctx.name}'s gender?\n\nReply: "male", "female", or "skip"`;
+            }
+
+            if (state === 'child_due_date') {
+                // Allow skip
+                if (lowerMsg === 'skip' || lowerMsg === 'dont know' || lowerMsg === 'unknown' || lowerMsg === 'not sure') {
+                    conversationState.awaitingResponse = 'child_gender';
+                    return `No problem! We can skip the due date for now.\n\nWould you like to specify gender?\n\nReply: "male", "female", or "skip"`;
+                }
+
+                const dueDate = parseDateInput(userMessage);
+                if (!dueDate) {
+                    return `I couldn't understand that date. Please use format: YYYY-MM-DD or MM/DD/YYYY\n\nExample: 2025-03-20 or 03/20/2025\n\nOr reply "skip" to skip this.`;
+                }
+                ctx.due_date = dueDate;
+                conversationState.awaitingResponse = 'child_gender';
+                return `Perfect! Due date: ${dueDate} 📅\n\nWould you like to specify gender?\n\nReply: "male", "female", or "skip"`;
+            }
+
+            if (state === 'child_gender') {
+                if (lowerMsg === 'skip' || lowerMsg === 'no' || lowerMsg === 'prefer not') {
+                    ctx.gender = '';
+                } else if (lowerMsg.includes('male') || lowerMsg.includes('boy')) {
+                    ctx.gender = 'male';
+                } else if (lowerMsg.includes('female') || lowerMsg.includes('girl')) {
+                    ctx.gender = 'female';
+                } else {
+                    ctx.gender = '';
+                }
+
+                // Complete the add child flow - ACTUALLY SAVE TO DATABASE
+                conversationState.awaitingResponse = 'saving_child';
+
+                // Call API to save child
+                saveChildToDatabase(ctx);
+
+                return `⏳ Saving ${ctx.name} to your family...`;
+            }
+
+            // === ADD FAMILY MEMBER FLOW ===
+            if (state === 'member_name') {
+                ctx.name = userMessage.trim();
+                if (!ctx.name) {
+                    return `I need a name. What's the family member's name?`;
+                }
+                conversationState.awaitingResponse = 'member_phone';
+                return `Thanks! Adding ${ctx.name}. 👤\n\nWhat's their phone number? (Include country code, e.g., +1234567890)\n\nOr reply "skip" if they don't have one.`;
+            }
+
+            if (state === 'member_phone') {
+                if (lowerMsg === 'skip' || lowerMsg === 'no' || lowerMsg === 'none') {
+                    ctx.phone = '';
+                } else {
+                    ctx.phone = userMessage.trim();
+                }
+                conversationState.awaitingResponse = 'member_relationship';
+                return `Got it! ✅\n\nWhat's ${ctx.name}'s relationship to the family?\n\nReply: "mom", "dad", "grandparent", "caregiver", or "other"`;
+            }
+
+            if (state === 'member_relationship') {
+                const validRelations = ['mom', 'dad', 'grandparent', 'caregiver', 'other'];
+                const relation = lowerMsg.trim().toLowerCase();
+
+                if (!validRelations.includes(relation)) {
+                    return `Please choose: "mom", "dad", "grandparent", "caregiver", or "other"`;
+                }
+
+                ctx.relationship = relation;
+                conversationState.awaitingResponse = 'saving_member';
+
+                // Call API to save family member
+                saveMemberToDatabase(ctx);
+
+                return `⏳ Saving ${ctx.name} to your family...`;
+            }
+
+            // Fallback
+            conversationState.awaitingResponse = null;
+            return `Sorry, something went wrong. Let's start over. How can I help you?`;
+        }
+
+        // Parse date input from various formats
+        function parseDateInput(input) {
+            // Try YYYY-MM-DD format
+            let match = input.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+            if (match) {
+                return `${match[1]}-${String(match[2]).padStart(2, '0')}-${String(match[3]).padStart(2, '0')}`;
+            }
+
+            // Try MM/DD/YYYY format
+            match = input.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (match) {
+                return `${match[3]}-${String(match[1]).padStart(2, '0')}-${String(match[2]).padStart(2, '0')}`;
+            }
+
+            // Try M-D-YYYY or other formats
+            match = input.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+            if (match) {
+                return `${match[3]}-${String(match[1]).padStart(2, '0')}-${String(match[2]).padStart(2, '0')}`;
+            }
+
+            return null;
+        }
+
+        // Generate mock Twilio response using actual user data - AI-FIRST APPROACH
+        function generateMockTwilioResponse(userMessage) {
+            const lowerMsg = userMessage.toLowerCase();
+
+            // Get user's actual children data
+            const children = currentFamily?.children || [];
+            const bornChildren = children.filter(c => !c.is_pregnancy);
+            const pregnancies = children.filter(c => c.is_pregnancy);
+
+            // Handle multi-turn conversation flows (these are structured flows that need exact responses)
+            if (conversationState.awaitingResponse) {
+                return handleConversationFlow(userMessage, lowerMsg);
+            }
+
+            // Check for account management actions (these trigger workflows)
+            if (lowerMsg.includes('add child') || lowerMsg.includes('add a child') || lowerMsg.includes('add another child') ||
+                lowerMsg.includes('new child') || lowerMsg.includes('register child')) {
+                conversationState.awaitingResponse = 'child_type';
+                conversationState.context = {};
+                return `👶 I'd love to help you add a child to your family!\n\nIs this for:\n1. A born child\n2. A pregnancy\n\nJust reply with "born" or "pregnancy"`;
+            }
+
+            if (lowerMsg.includes('add member') || lowerMsg.includes('add family member') || lowerMsg.includes('add parent') ||
+                lowerMsg.includes('add caregiver')) {
+                conversationState.awaitingResponse = 'member_name';
+                conversationState.context = {};
+                return `👨‍👩‍👧 Great! I'll help you add a family member.\n\nWhat's their name?`;
+            }
+
+            // **AI-FIRST: Route everything else through AI with conversation history**
+            // Add message to history
+            conversationState.conversationHistory.push({role: 'user', content: userMessage});
+            if (conversationState.conversationHistory.length > 10) {
+                conversationState.conversationHistory = conversationState.conversationHistory.slice(-10); // Keep last 10 messages
+            }
+
+            // Call AI with full context (don't show thinking message)
+            getAIResponseWithHistory(userMessage, children, bornChildren, pregnancies);
+            return null; // Don't show intermediate message
+        }
+
+        // AI-powered response with conversation history
+        async function getAIResponseWithHistory(question, children, bornChildren, pregnancies) {
+            try {
+                // Build rich context
+                let familyContext = `Family: ${currentFamily?.primary_name || 'User'}`;
+                if (children.length > 0) {
+                    familyContext += `\nChildren: `;
+                    children.forEach(child => {
+                        if (child.is_pregnancy) {
+                            familyContext += `\n- ${child.name} (pregnancy, due ${child.due_date})`;
+                        } else {
+                            const birthDate = new Date(child.birth_date);
+                            const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+                            familyContext += `\n- ${child.name} (${ageMonths} months old, born ${child.birth_date})`;
+                        }
+                    });
+                }
+
+                // Build conversation history string
+                let historyString = '';
+                if (conversationState.conversationHistory.length > 1) {
+                    historyString = '\n\nRecent conversation:\n';
+                    conversationState.conversationHistory.slice(-6, -1).forEach(msg => {
+                        historyString += `${msg.role === 'user' ? 'User' : 'Coo'}: ${msg.content}\n`;
+                    });
+                }
+
+                // Enhanced question with full context
+                const enhancedQuestion = `${familyContext}${historyString}\n\nCurrent question: ${question}`;
+
+                // Call AI service
+                const response = await fetch('/api/ai/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        question: enhancedQuestion,
+                        use_case: 'general',
+                        max_tokens: 300
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('AI service unavailable');
+                }
+
+                const result = await response.json();
+
+                // Add AI response to history
+                conversationState.conversationHistory.push({role: 'assistant', content: result.answer});
+
+                // Display response
+                addSMSMessage(result.answer, 'received');
+
+            } catch (error) {
+                console.error('AI Error:', error);
+                // Fallback to keyword-based response
+                const fallbackResponse = getKeywordFallback(question, children, bornChildren, pregnancies);
+                conversationState.conversationHistory.push({role: 'assistant', content: fallbackResponse});
+                addSMSMessage(fallbackResponse, 'received');
+            }
+        }
+
+        // Keyword-based fallback (only used if AI fails)
+        function getKeywordFallback(userMessage, children, bornChildren, pregnancies) {
+            const lowerMsg = userMessage.toLowerCase();
+
+            // Personalized greeting with family name
+            if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
+                let greeting = `👋 Hi ${currentFamily?.primary_name || 'there'}! I'm Coo, your AI parenting companion.`;
+
+                if (children.length > 0) {
+                    const childNames = children.map(c => c.name).join(', ');
+                    greeting += `\n\nI see you have ${children.length} ${children.length === 1 ? 'child' : 'children'}: ${childNames}.`;
+                }
+
+                greeting += "\n\nHow can I help you today?";
+                return greeting;
+            }
+
+            // Vaccine information with actual child data
+            if (lowerMsg.includes('vaccine') || lowerMsg.includes('shot') || lowerMsg.includes('immunization')) {
+                if (bornChildren.length === 0) {
+                    return "💉 I'd be happy to help with vaccine information! However, I don't see any born children in your family yet. Would you like to add a child first?";
+                }
+
+                const child = bornChildren[0];
+                const birthDate = new Date(child.birth_date);
+                const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+                // Check if this is about pre or post vaccine care
+                if (lowerMsg.includes('pre') || lowerMsg.includes('before') || lowerMsg.includes('prepare')) {
+                    return `💉 **Pre-Vaccine Checklist for ${child.name}** (${ageMonths} months)\n\n📋 Before the appointment:\n• Give acetaminophen/ibuprofen if recommended by doctor\n• Bring ${child.name}'s vaccination record\n• Dress in easy-access clothing\n• Bring favorite toy for comfort\n\n⏰ At ${ageMonths} months, ${child.name} will get:\n• DTaP • IPV • Hib • PCV13 • Rotavirus\n\n💬 Questions to ask your doctor:\n• Side effects to watch for\n• When to call if concerned\n• Next vaccine schedule`;
+                }
+
+                if (lowerMsg.includes('post') || lowerMsg.includes('after') || lowerMsg.includes('side effect')) {
+                    return `💉 **Post-Vaccine Care for ${child.name}** (${ageMonths} months)\n\n✅ Normal reactions (24-48 hrs):\n• Mild fever (<101°F)\n• Fussiness or drowsiness\n• Injection site soreness/redness\n• Decreased appetite\n\n🏠 Care tips:\n• Offer extra cuddles & nursing\n• Cool compress on injection site\n• Acetaminophen if fever (check with doctor)\n• Monitor for 24 hours\n\n🚨 Call doctor if:\n• High fever (>104°F)\n• Difficulty breathing\n• Severe swelling\n• Unusual crying >3 hours`;
+                }
+
+                // General vaccine info with intelligent timing
+                let vaccineMsg = `💉 Vaccine update for ${child.name} (${ageMonths} months old)!\n\n`;
+
+                if (ageMonths < 2) {
+                    vaccineMsg += `📅 ${child.name}'s 2-month vaccines are coming up soon!\n\nUpcoming shots:\n• DTaP • IPV • Hib • PCV13 • Rotavirus\n\n💡 Tip: Schedule the appointment now. Reply "pre-vaccine tips" for preparation checklist.`;
+                } else if (ageMonths >= 2 && ageMonths < 4) {
+                    vaccineMsg += `✅ ${child.name} should have had the 2-month vaccines.\n\nNext up at 4 months:\n• DTaP #2 • IPV #2 • Hib #2 • PCV13 #2 • Rotavirus #2\n\n💬 Reply:\n• "pre-vaccine tips" for checklist\n• "post-vaccine care" for side effects`;
+                } else if (ageMonths >= 4 && ageMonths < 6) {
+                    vaccineMsg += `📅 ${child.name}'s 6-month vaccines are coming up!\n\nSchedule includes:\n• DTaP #3 • IPV #3 • Hib #3 • PCV13 #3 • Rotavirus #3\n• Flu shot (if flu season)\n\n💡 Most reactions are mild. Reply "post-vaccine care" for tips.`;
+                } else {
+                    vaccineMsg += `Current vaccine schedule:\n• DTaP • IPV • Hib • PCV13 • MMR • Varicella\n\n📋 Keep track of all shots in ${child.name}'s vaccine record.\n\nReply "vaccine schedule" for full timeline.`;
+                }
+
+                return vaccineMsg;
+            }
+
+            // Milestone information with actual child data
+            if (lowerMsg.includes('milestone') || lowerMsg.includes('development')) {
+                if (bornChildren.length === 0) {
+                    return "📈 I'd love to help with developmental milestones! However, I don't see any born children in your family yet. Would you like to add a child first?";
+                }
+
+                const child = bornChildren[0];
+                const birthDate = new Date(child.birth_date);
+                const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+                return `📈 Let's check ${child.name}'s developmental milestones!\n\nAt ${ageMonths} months old, ${child.name} should typically be:\n• ${ageMonths >= 6 ? 'Sitting with support' : 'Working on head control'}\n• ${ageMonths >= 4 ? 'Rolling over' : 'Tracking objects with eyes'}\n• ${ageMonths >= 3 ? 'Reaching for toys' : 'Discovering hands and feet'}\n\nWould you like a detailed milestone assessment for ${child.name}?`;
+            }
+
+            // Symptom triage with intelligent responses
+            if (lowerMsg.includes('fever') || lowerMsg.includes('sick') || lowerMsg.includes('symptom') ||
+                lowerMsg.includes('cough') || lowerMsg.includes('vomit') || lowerMsg.includes('diarrhea') ||
+                lowerMsg.includes('rash') || lowerMsg.includes('pain') || lowerMsg.includes('cold')) {
+
+                if (bornChildren.length === 0) {
+                    return "🏥 I can help assess symptoms! However, I don't see any born children in your family yet. Would you like to add a child first?";
+                }
+
+                const child = bornChildren[0];
+                const birthDate = new Date(child.birth_date);
+                const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+                // Fever-specific guidance
+                if (lowerMsg.includes('fever') || lowerMsg.includes('temperature')) {
+                    if (ageMonths < 3) {
+                        return `🚨 **IMPORTANT for ${child.name}** (${ageMonths} months)\n\n⚠️ Fever in babies under 3 months requires immediate medical attention.\n\n📞 ACTION NEEDED:\n• Call your pediatrician NOW\n• If temp >100.4°F (38°C), go to ER\n• Don't give medication without doctor approval\n\nFever in young babies can be serious. Please seek medical care right away.`;
+                    } else {
+                        return `🌡️ **Fever Care for ${child.name}** (${ageMonths} months)\n\n✅ NORMAL:\n• Fever <104°F with normal behavior\n• Drinks fluids well\n• Has wet diapers\n\n🏠 HOME CARE:\n• Give acetaminophen/ibuprofen (check dosing)\n• Light clothing\n• Room temperature fluids\n• Monitor temp every 4 hours\n\n🚨 CALL DOCTOR IF:\n• Fever >104°F or lasts >3 days\n• Difficulty breathing\n• Won't drink or eat\n• Unusual lethargy\n• Fever with rash\n\nHow is ${child.name} acting otherwise?`;
+                    }
+                }
+
+                // Cold symptoms
+                if (lowerMsg.includes('cold') || lowerMsg.includes('cough') || lowerMsg.includes('congested') || lowerMsg.includes('runny nose')) {
+                    return `🤧 **Cold Care for ${child.name}** (${ageMonths} months)\n\nColds are common and usually resolve in 7-10 days.\n\n🏠 HOME CARE:\n• Saline nose drops + suction\n• Humidifier in room\n• Plenty of fluids\n• Elevate head slightly\n• Extra rest\n\n🚨 CALL DOCTOR IF:\n• Difficulty breathing\n• Fever >104°F\n• Symptoms worsen after 7 days\n• Ear pain (pulling at ears)\n• Refuses to drink\n\n💡 TIP: Colds don't need antibiotics. Most are viral and resolve on their own.\n\nWhen did symptoms start?`;
+                }
+
+                // General symptom response
+                return `🏥 I can help assess ${child.name}'s symptoms (${ageMonths} months old).\n\nPlease describe:\n• What symptoms you're seeing\n• When they started\n• How ${child.name} is acting\n• Any fever (and temperature)\n\n⚠️ **Seek immediate care if:**\n• Difficulty breathing\n• Severe dehydration\n• High fever in infant <3mo\n• Unusual lethargy/unresponsive\n\nWhat specific symptoms is ${child.name} having?`;
+            }
+
+            // Activity recommendations with actual child data
+            if (lowerMsg.includes('activity') || lowerMsg.includes('play')) {
+                if (bornChildren.length === 0) {
+                    return "🎨 I'd love to suggest activities! However, I don't see any born children in your family yet. Would you like to add a child first?";
+                }
+
+                const child = bornChildren[0];
+                const birthDate = new Date(child.birth_date);
+                const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+                return `🎨 Fun activity ideas for ${child.name} (${ageMonths} months old):\n\n• Tummy time (15-20 min daily)\n• ${ageMonths >= 6 ? 'Playing peek-a-boo' : 'Black & white contrast cards'}\n• ${ageMonths >= 4 ? 'Exploring safe textures' : 'Gentle music and sounds'}\n• ${ageMonths >= 8 ? 'Simple cause-and-effect toys' : 'Baby-safe mirrors'}\n\nWant me to create a full week of activities for ${child.name}?`;
+            }
+
+            // Pregnancy guidance with actual pregnancy data
+            if (lowerMsg.includes('pregnancy') || lowerMsg.includes('pregnant') || lowerMsg.includes('weeks')) {
+                if (pregnancies.length === 0) {
+                    if (bornChildren.length > 0) {
+                        return "🤰 I can help with pregnancy guidance! However, I don't see any active pregnancies in your family. Would you like to add a pregnancy?";
+                    }
+                    return "🤰 Congratulations on your journey! I don't see a pregnancy added to your family yet. Would you like to add one so I can provide personalized guidance?";
+                }
+
+                const pregnancy = pregnancies[0];
+                const dueDate = new Date(pregnancy.due_date);
+                const today = new Date();
+                const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+                const weeksPregnant = Math.max(0, 40 - Math.floor(daysUntilDue / 7));
+
+                return `🤰 Pregnancy update for ${pregnancy.name}:\n\nYou're currently ${weeksPregnant} weeks pregnant with ${daysUntilDue} days until your due date (${dueDate.toLocaleDateString()}).\n\nAt week ${weeksPregnant}:\n• Baby is developing rapidly\n• ${weeksPregnant >= 20 ? 'You may feel movement' : 'Major organs forming'}\n• ${weeksPregnant >= 24 ? 'Baby can hear your voice' : 'Brain development accelerating'}\n\nWould you like detailed guidance for week ${weeksPregnant}?`;
+            }
+
+            // Subscription and account questions
+            if (lowerMsg.includes('subscription') || lowerMsg.includes('upgrade') || lowerMsg.includes('plan') || lowerMsg.includes('tier')) {
+                return `💳 Your current plan is ${currentFamily?.subscription_tier || 'FREE'}.\n\nAvailable plans:\n• FREE: 1 parent, 1 child, 50 messages/year\n• FAMILY ($4.99/yr): 2 parents, 3 children, 100 messages/month\n• PREMIUM ($9.99/yr): 10 members, 3 children, 1,000 messages/month\n\nTo upgrade, please visit the web portal or contact support.`;
+            }
+
+            // Family status check
+            if (lowerMsg.includes('family') || lowerMsg.includes('status')) {
+                let status = `👨‍👩‍👧 **${currentFamily?.primary_name}'s Family Status**\n\n`;
+                status += `📋 Subscription: ${currentFamily?.subscription_tier || 'FREE'}\n`;
+                status += `👥 Family Members: ${currentFamily?.members?.length || 0}\n`;
+                status += `👶 Children: ${children.length}\n\n`;
+
+                if (bornChildren.length > 0) {
+                    status += `**Born Children:**\n`;
+                    bornChildren.forEach(child => {
+                        const birthDate = new Date(child.birth_date);
+                        const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+                        status += `• ${child.name} (${ageMonths} months old)\n`;
+                    });
+                }
+
+                if (pregnancies.length > 0) {
+                    status += `\n**Active Pregnancies:**\n`;
+                    pregnancies.forEach(pregnancy => {
+                        const dueDate = new Date(pregnancy.due_date);
+                        const daysUntilDue = Math.ceil((dueDate - dueDate) / (1000 * 60 * 60 * 24));
+                        const weeksPregnant = Math.max(0, 40 - Math.floor(daysUntilDue / 7));
+                        status += `• ${pregnancy.name} (Week ${weeksPregnant})\n`;
+                    });
+                }
+
+                return status;
+            }
+
+            // Help menu
+            if (lowerMsg.includes('help')) {
+                return `🐣 I'm here to help ${currentFamily?.primary_name || 'you'}!\n\nI can assist with:\n• 💉 Vaccine schedules${bornChildren.length > 0 ? ' for ' + bornChildren.map(c => c.name).join(', ') : ''}\n• 📈 Developmental milestones\n• 🎨 Activity recommendations\n• 🤰 Pregnancy guidance${pregnancies.length > 0 ? ' (Week ' + Math.max(0, 40 - Math.floor((Math.ceil((new Date(pregnancies[0].due_date) - new Date()) / (1000 * 60 * 60 * 24)) / 7))) + ')' : ''}\n\nJust ask me anything!`;
+            }
+
+            return `Sorry, I'm having trouble understanding. Try asking about vaccines, milestones, or pregnancy.`;
+        }
+
+        // Clear SMS conversation
+        function clearSMSConversation() {
+            const conversation = document.getElementById('smsConversation');
+            conversation.innerHTML = `
+                <div style="text-align: center; color: #999; padding: 20px;">
+                    No messages yet. Send your first test message below.
+                </div>
+            `;
+        }
+
+        // Demo: Send Pre-Vaccine Alert
+        function sendPreVaccineDemo() {
+            const children = currentFamily?.children?.filter(c => !c.is_pregnancy) || [];
+
+            if (children.length === 0) {
+                alert('❌ Please add a child first!\n\nGo to the "Children" tab to add a child, then come back to try this demo.');
+                return;
+            }
+
+            const child = children[0]; // Use first child
+            const childName = child.name;
+
+            // Calculate child's age
+            const birthDate = new Date(child.birth_date);
+            const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+            // Pre-vaccine notification
+            const preVaccineMessage = `📅 Upcoming Appointment Reminder\n\nHi ${currentFamily?.primary_name}!\n\n${childName} has a 2-month vaccine appointment coming up this week.\n\n💉 Vaccines scheduled:\n• DTaP (Diphtheria, Tetanus, Pertussis)\n• Hib (Haemophilus influenzae type b)\n• PCV (Pneumococcal)\n• Rotavirus\n• Polio (IPV)\n\n📋 What to bring:\n✓ Insurance card\n✓ Previous vaccine records\n✓ Questions for pediatrician\n\n💡 Tip: Nurse or feed ${childName} right after shots to help comfort them.\n\nReply with any questions!`;
+
+            addSMSMessage(preVaccineMessage, 'received');
+        }
+
+        // Demo: Send Post-Vaccine Alert
+        function sendPostVaccineDemo() {
+            const children = currentFamily?.children?.filter(c => !c.is_pregnancy) || [];
+
+            if (children.length === 0) {
+                alert('❌ Please add a child first!\n\nGo to the "Children" tab to add a child, then come back to try this demo.');
+                return;
+            }
+
+            const child = children[0]; // Use first child
+            const childName = child.name;
+
+            // Post-vaccine care notification
+            const postVaccineMessage = `🩹 Post-Vaccine Care Guide\n\nHi ${currentFamily?.primary_name}!\n\nGreat job getting ${childName} vaccinated today! Here's what to expect:\n\n✅ Normal reactions (1-2 days):\n• Mild soreness at injection site\n• Low-grade fever (under 101°F)\n• Fussiness or drowsiness\n• Reduced appetite\n\n💊 Comfort tips:\n• Offer extra cuddles\n• Use cool compress on sore spots\n• Acetaminophen if uncomfortable (ask pediatrician for dosage)\n• Keep hydrated\n\n⚠️ Call doctor if:\n• Fever over 105°F\n• Inconsolable crying (3+ hours)\n• Difficulty breathing\n• Severe swelling\n\nNeed help? Just text me!\n\n💬 Example: "My baby has fever, is that normal?"`;
+
+            addSMSMessage(postVaccineMessage, 'received');
+
+            alert('✅ Post-Vaccine Alert Sent!\n\nCheck the SMS simulator to see the care guide.');
+        }
+
+        // Load Progress Page
+        function loadProgress() {
+            const bornChildren = currentFamily?.children?.filter(c => !c.is_pregnancy) || [];
+
+            if (bornChildren.length === 0) {
+                document.getElementById('childSelector').style.display = 'none';
+                document.getElementById('timelineMilestones').innerHTML = `
+                    <div style="text-align: center; color: var(--coo-dark); padding: 40px;">
+                        <h3>No Children Added Yet</h3>
+                        <p style="margin: 20px 0;">Add a child to track their developmental progress!</p>
+                        <button class="primary" onclick="showView('children')">Add Child</button>
+                    </div>
+                `;
+                document.getElementById('keyMilestones').innerHTML = '<li>Add a child to see milestones</li>';
+                document.getElementById('growthOverview').innerHTML = '<li>Add a child to see growth data</li>';
+                document.getElementById('parentingTips').innerHTML = '<li>Add a child to see personalized tips</li>';
+                return;
+            }
+
+            // Show child selector if there are multiple children
+            if (bornChildren.length > 1) {
+                document.getElementById('childSelector').style.display = 'block';
+                const dropdown = document.getElementById('childSelectorDropdown');
+                dropdown.innerHTML = bornChildren.map((child, index) =>
+                    `<option value="${index}">${child.name} (${getChildAgeDisplay(child)})</option>`
+                ).join('');
+            } else {
+                document.getElementById('childSelector').style.display = 'none';
+            }
+
+            // Load the first child's progress by default
+            loadProgressForChild(0);
+        }
+
+        // Get child age display string
+        function getChildAgeDisplay(child) {
+            const birthDate = new Date(child.birth_date);
+            const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+            if (ageMonths < 12) return `${ageMonths} months`;
+            const years = Math.floor(ageMonths / 12);
+            return `${years} year${years > 1 ? 's' : ''}`;
+        }
+
+        // Load progress for a specific child
+        function loadProgressForChild(childIndex) {
+            const bornChildren = currentFamily?.children?.filter(c => !c.is_pregnancy) || [];
+            if (bornChildren.length === 0 || childIndex < 0 || childIndex >= bornChildren.length) {
+                return;
+            }
+
+            const child = bornChildren[childIndex];
+            const birthDate = new Date(child.birth_date);
+            const ageMonths = Math.floor((new Date() - birthDate) / (1000 * 60 * 60 * 24 * 30));
+
+            // Milestone ages in months: 0, 2, 6, 9, 12, 18, 24, 36, 48, 60
+            const milestones = [
+                { months: 0, label: '0M', emoji: '🍼' },
+                { months: 2, label: '2M', emoji: '😊' },
+                { months: 6, label: '6M', emoji: '🪀' },
+                { months: 9, label: '9M', emoji: '🧸' },
+                { months: 12, label: '12M', emoji: '🎂' },
+                { months: 18, label: '18M', emoji: '🚶' },
+                { months: 24, label: '2Y', emoji: '🎨' },
+                { months: 36, label: '3Y', emoji: '🚲' },
+                { months: 48, label: '4Y', emoji: '📚' },
+                { months: 60, label: '5Y', emoji: '🎒' }
+            ];
+
+            // Calculate progress percentage
+            const maxMonths = 60;
+            const progressPercent = Math.min((ageMonths / maxMonths) * 100, 100);
+            document.getElementById('timelineProgress').style.width = `${progressPercent}%`;
+
+            // Render milestone markers
+            let milestonesHTML = '';
+            milestones.forEach((milestone, index) => {
+                const isCompleted = ageMonths > milestone.months;
+                const isActive = ageMonths >= milestone.months && (index === milestones.length - 1 || ageMonths < milestones[index + 1].months);
+                const statusClass = isActive ? 'active' : (isCompleted ? 'completed' : '');
+
+                milestonesHTML += `
+                    <div class="milestone">
+                        <div class="milestone-image ${statusClass}">
+                            ${milestone.emoji}
+                        </div>
+                        <div class="milestone-label">${milestone.label}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('timelineMilestones').innerHTML = milestonesHTML;
+
+            // Populate Key Milestones based on age
+            const keyMilestonesData = getMilestoneData(ageMonths);
+            document.getElementById('keyMilestones').innerHTML = keyMilestonesData.map(m => `<li>${m}</li>`).join('');
+
+            // Populate Growth Overview
+            const growthData = getGrowthData(child, ageMonths);
+            document.getElementById('growthOverview').innerHTML = growthData.map(g => `<li>${g}</li>`).join('');
+
+            // Populate Parenting Tips
+            const tipsData = getParentingTips(ageMonths);
+            document.getElementById('parentingTips').innerHTML = tipsData.map(t => `<li>${t}</li>`).join('');
+        }
+
+        // Get milestone data based on child's age
+        function getMilestoneData(ageMonths) {
+            if (ageMonths < 2) {
+                return [
+                    'Lifts head while on tummy',
+                    'Responds to sounds and voices',
+                    'Focuses on faces',
+                    'Begins to smile',
+                    'Makes cooing sounds'
+                ];
+            } else if (ageMonths < 6) {
+                return [
+                    'Rolls over from tummy to back',
+                    'Reaches for and grasps toys',
+                    'Responds to own name',
+                    'Laughs and shows excitement',
+                    'Explores objects with mouth'
+                ];
+            } else if (ageMonths < 9) {
+                return [
+                    'Sits without support',
+                    'Transfers objects hand to hand',
+                    'Babbles (ba-ba, da-da)',
+                    'Stranger anxiety may begin',
+                    'Responds to simple words'
+                ];
+            } else if (ageMonths < 12) {
+                return [
+                    'Crawls or scoots',
+                    'Pulls to standing',
+                    'Waves bye-bye',
+                    'Says first words (mama, dada)',
+                    'Plays peek-a-boo'
+                ];
+            } else if (ageMonths < 18) {
+                return [
+                    'Takes first steps independently',
+                    'Says 3-5 words',
+                    'Points to objects',
+                    'Drinks from a cup',
+                    'Helps with dressing'
+                ];
+            } else if (ageMonths < 24) {
+                return [
+                    'Runs and climbs stairs',
+                    'Says 20+ words',
+                    'Follows simple instructions',
+                    'Begins pretend play',
+                    'Feeds self with utensils'
+                ];
+            } else if (ageMonths < 36) {
+                return [
+                    'Speaks in 2-3 word sentences',
+                    'Jumps with both feet',
+                    'Begins potty training',
+                    'Plays alongside other children',
+                    'Identifies colors and shapes'
+                ];
+            } else if (ageMonths < 48) {
+                return [
+                    'Pedals tricycle',
+                    'Speaks in full sentences',
+                    'Dresses/undresses independently',
+                    'Engages in cooperative play',
+                    'Understands concepts of same/different'
+                ];
+            } else if (ageMonths < 60) {
+                return [
+                    'Hops on one foot',
+                    'Tells stories',
+                    'Draws simple shapes',
+                    'Follows multi-step instructions',
+                    'Shows independence'
+                ];
+            } else {
+                return [
+                    'Ready for kindergarten',
+                    'Writes some letters',
+                    'Counts to 10+',
+                    'Shows empathy for friends',
+                    'Demonstrates good self-control'
+                ];
+            }
+        }
+
+        // Get growth overview data
+        function getGrowthData(child, ageMonths) {
+            const ageDisplay = ageMonths < 12 ? `${ageMonths} months old` :
+                              ageMonths < 24 ? `${Math.floor(ageMonths / 12)} year old` :
+                              `${Math.floor(ageMonths / 12)} years old`;
+
+            return [
+                `${child.name} is ${ageDisplay}`,
+                `Born on ${new Date(child.birth_date).toLocaleDateString()}`,
+                `Gender: ${child.gender || 'Not specified'}`,
+                `Developmental stage: ${getDevelopmentalStage(ageMonths)}`,
+                `Next milestone check: ${getNextMilestoneAge(ageMonths)} months`
+            ];
+        }
+
+        // Get developmental stage name
+        function getDevelopmentalStage(ageMonths) {
+            if (ageMonths < 12) return 'Infant';
+            if (ageMonths < 36) return 'Toddler';
+            if (ageMonths < 60) return 'Preschooler';
+            return 'School-Age';
+        }
+
+        // Get next milestone age
+        function getNextMilestoneAge(ageMonths) {
+            const milestoneAges = [2, 6, 9, 12, 18, 24, 36, 48, 60];
+            for (let age of milestoneAges) {
+                if (ageMonths < age) return age;
+            }
+            return 60;
+        }
+
+        // Get parenting tips based on age
+        function getParentingTips(ageMonths) {
+            if (ageMonths < 2) {
+                return [
+                    'Tummy time for 5-10 minutes, 2-3 times daily',
+                    'Respond to cries promptly to build trust',
+                    'Talk and sing to your baby often',
+                    'Ensure safe sleep environment (back sleeping)',
+                    'Schedule regular pediatrician visits'
+                ];
+            } else if (ageMonths < 6) {
+                return [
+                    'Introduce solid foods around 6 months',
+                    'Continue tummy time for strength building',
+                    'Read books together daily',
+                    'Baby-proof your home as mobility increases',
+                    'Maintain consistent sleep routines'
+                ];
+            } else if (ageMonths < 12) {
+                return [
+                    'Encourage crawling with safe exploration',
+                    'Introduce finger foods for self-feeding',
+                    'Play simple games like peek-a-boo',
+                    'Limit screen time (AAP recommends none)',
+                    'Talk about objects and actions during play'
+                ];
+            } else if (ageMonths < 24) {
+                return [
+                    'Read together 20-30 minutes daily',
+                    'Encourage language by narrating activities',
+                    'Provide safe climbing opportunities',
+                    'Establish predictable daily routines',
+                    'Offer healthy snacks between meals'
+                ];
+            } else if (ageMonths < 36) {
+                return [
+                    'Encourage independence in dressing',
+                    'Practice potty training when ready',
+                    'Arrange playdates for social development',
+                    'Set clear, consistent boundaries',
+                    'Limit screen time to 1 hour quality programming'
+                ];
+            } else if (ageMonths < 48) {
+                return [
+                    'Foster creativity with art supplies',
+                    'Teach problem-solving skills',
+                    'Encourage physical activity daily',
+                    'Practice letters and numbers through play',
+                    'Model good manners and social skills'
+                ];
+            } else {
+                return [
+                    'Prepare for kindergarten readiness',
+                    'Encourage reading and early writing',
+                    'Teach basic math concepts',
+                    'Foster emotional intelligence',
+                    'Maintain consistent bedtime routines'
+                ];
+            }
+        }
+    </script>
+</body>
+</html>

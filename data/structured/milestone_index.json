@@ -1,0 +1,62 @@
+{
+  "2mo": {
+    "age_label": "2 months",
+    "age_days": 60,
+    "url": "https://www.cdc.gov/act-early/milestones/2-months.html",
+    "downloaded": true
+  },
+  "4mo": {
+    "age_label": "4 months",
+    "age_days": 120,
+    "url": "https://www.cdc.gov/act-early/milestones/4-months.html",
+    "downloaded": true
+  },
+  "6mo": {
+    "age_label": "6 months",
+    "age_days": 180,
+    "url": "https://www.cdc.gov/act-early/milestones/6-months.html",
+    "downloaded": true
+  },
+  "9mo": {
+    "age_label": "9 months",
+    "age_days": 270,
+    "url": "https://www.cdc.gov/act-early/milestones/9-months.html",
+    "downloaded": true
+  },
+  "1yr": {
+    "age_label": "1 year",
+    "age_days": 365,
+    "url": "https://www.cdc.gov/act-early/milestones/1-year.html",
+    "downloaded": true
+  },
+  "18mo": {
+    "age_label": "18 months",
+    "age_days": 545,
+    "url": "https://www.cdc.gov/act-early/milestones/18-months.html",
+    "downloaded": true
+  },
+  "2yr": {
+    "age_label": "2 years",
+    "age_days": 730,
+    "url": "https://www.cdc.gov/act-early/milestones/2-years.html",
+    "downloaded": true
+  },
+  "3yr": {
+    "age_label": "3 years",
+    "age_days": 1095,
+    "url": "https://www.cdc.gov/act-early/milestones/3-years.html",
+    "downloaded": true
+  },
+  "4yr": {
+    "age_label": "4 years",
+    "age_days": 1460,
+    "url": "https://www.cdc.gov/act-early/milestones/4-years.html",
+    "downloaded": true
+  },
+  "5yr": {
+    "age_label": "5 years",
+    "age_days": 1825,
+    "url": "https://www.cdc.gov/act-early/milestones/5-years.html",
+    "downloaded": true
+  }
+}

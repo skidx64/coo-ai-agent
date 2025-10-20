@@ -1,0 +1,96 @@
+{
+  "birth": {
+    "age_days": 0,
+    "age_label": "Birth",
+    "vaccines": [
+      "Hepatitis B"
+    ],
+    "optional": [],
+    "notes": "First dose, second dose at 1-2 months"
+  },
+  "2_months": {
+    "age_days": 60,
+    "age_label": "2 months",
+    "vaccines": [
+      "DTaP",
+      "Hib",
+      "IPV",
+      "PCV13",
+      "RV"
+    ],
+    "optional": [],
+    "notes": "First dose of 5-in-1 series"
+  },
+  "4_months": {
+    "age_days": 120,
+    "age_label": "4 months",
+    "vaccines": [
+      "DTaP",
+      "Hib",
+      "IPV",
+      "PCV13",
+      "RV"
+    ],
+    "optional": [],
+    "notes": "Second dose of series"
+  },
+  "6_months": {
+    "age_days": 180,
+    "age_label": "6 months",
+    "vaccines": [
+      "DTaP",
+      "Hib",
+      "PCV13",
+      "RV"
+    ],
+    "optional": [
+      "Hepatitis B",
+      "IPV",
+      "Influenza"
+    ],
+    "notes": "Third dose. Flu vaccine can start now."
+  },
+  "12_months": {
+    "age_days": 365,
+    "age_label": "12 months",
+    "vaccines": [
+      "Hib",
+      "PCV13",
+      "MMR",
+      "Varicella",
+      "Hepatitis A"
+    ],
+    "optional": [],
+    "notes": "Major milestone - MMR and chickenpox vaccines"
+  },
+  "15_months": {
+    "age_days": 455,
+    "age_label": "15 months",
+    "vaccines": [
+      "DTaP"
+    ],
+    "optional": [],
+    "notes": "Fourth DTaP dose"
+  },
+  "18_months": {
+    "age_days": 545,
+    "age_label": "18 months",
+    "vaccines": [
+      "Hepatitis A"
+    ],
+    "optional": [],
+    "notes": "Second Hepatitis A dose"
+  },
+  "4_years": {
+    "age_days": 1460,
+    "age_label": "4-6 years",
+    "vaccines": [
+      "DTaP",
+      "IPV",
+      "MMR",
+      "Varicella"
+    ],
+    "optional": [],
+    "notes": "Before kindergarten boosters"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "trimester_2": {
+    "weeks": "14-27",
+    "key_milestones": {
+      "week_14": {
+        "mom": "Welcome to 2nd trimester",
+        "baby": "Size of lemon, facial features forming",
+        "to_do": [
+          "Start planning nursery"
+        ],
+        "purchases": []
+      },
+      "week_20": {
+        "mom": "Anatomy scan due",
+        "baby": "Halfway point, can hear sounds",
+        "to_do": [
+          "Schedule anatomy scan",
+          "Start shopping for essentials"
+        ],
+        "purchases": [
+          "Crib",
+          "Car seat",
+          "Stroller"
+        ]
+      },
+      "week_24": {
+        "mom": "Glucose screening test",
+        "baby": "Developing sleep patterns",
+        "to_do": [
+          "Nursery planning",
+          "Register for childbirth classes"
+        ],
+        "purchases": [
+          "Changing table",
+          "Dresser",
+          "Rocker"
+        ]
+      },
+      "week_27": {
+        "mom": "Tdap vaccine due",
+        "baby": "Can respond to sounds and light",
+        "to_do": [
+          "Get Tdap vaccine",
+          "Start childbirth classes"
+        ],
+        "purchases": []
+      }
+    }
+  },
+  "trimester_3": {
+    "weeks": "28-40",
+    "key_milestones": {
+      "week_32": {
+        "mom": "Weekly checkups begin soon",
+        "baby": "Gaining weight rapidly",
+        "to_do": [
+          "Pack hospital bag",
+          "Install car seat",
+          "Final purchases"
+        ],
+        "purchases": [
+          "Newborn clothes",
+          "Diapers",
+          "Bottles",
+          "Nursing supplies"
+        ]
+      },
+      "week_36": {
+        "mom": "Group B strep test",
+        "baby": "Full term approaching",
+        "to_do": [
+          "Finalize birth plan",
+          "Pre-register at hospital"
+        ],
+        "purchases": []
+      },
+      "week_38": {
+        "mom": "Baby could come any day",
+        "baby": "Ready for birth",
+        "to_do": [
+          "Watch for labor signs",
+          "Keep phone charged",
+          "Have bags ready"
+        ],
+        "purchases": []
+      }
+    }
+  }
+}

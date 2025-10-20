@@ -1,50 +1,27 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
+*.egg-info/
 venv/
-env/
-ENV/
-
-# Environment
 .env
 .env.local
+*.env
+!.env.aws.example
 
-# Data files
-data/raw/*.pdf
-data/raw/*.html
+# Database
 *.db
 *.sqlite
-*.sqlite3
+coo.db
 
-# Vector DB
+# Deployment
+coo-lambda.zip
+lambda-package/
+
+# ChromaDB
+chroma_db/
 vector_db/
-chroma.sqlite3
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
 .DS_Store
-
-# Logs
-*.log
-logs/
-
-# Temp files
-temp/
-tmp/
-*.tmp
-
-# Model files
-*.bin
-*.pt
-*.pth
-models/
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb

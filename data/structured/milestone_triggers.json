@@ -1,0 +1,127 @@
+{
+  "pregnancy": {
+    "week_14": {
+      "message_type": "welcome_trimester_2",
+      "priority": "normal"
+    },
+    "week_20": {
+      "message_type": "anatomy_scan_reminder",
+      "priority": "high",
+      "actions": [
+        "remind_shopping"
+      ]
+    },
+    "week_24": {
+      "message_type": "nursery_planning",
+      "priority": "normal"
+    },
+    "week_27": {
+      "message_type": "tdap_vaccine",
+      "priority": "high"
+    },
+    "week_32": {
+      "message_type": "hospital_bag",
+      "priority": "high",
+      "actions": [
+        "final_purchases"
+      ]
+    },
+    "week_36": {
+      "message_type": "labor_prep",
+      "priority": "normal"
+    }
+  },
+  "baby_age_days": {
+    "0": {
+      "message_type": "congratulations_birth",
+      "priority": "high"
+    },
+    "7": {
+      "message_type": "first_week_checkin",
+      "priority": "normal"
+    },
+    "53": {
+      "message_type": "vaccine_reminder_2mo",
+      "priority": "high",
+      "days_before": 7
+    },
+    "60": {
+      "message_type": "milestone_2mo",
+      "priority": "normal"
+    },
+    "113": {
+      "message_type": "vaccine_reminder_4mo",
+      "priority": "high",
+      "days_before": 7
+    },
+    "120": {
+      "message_type": "milestone_4mo",
+      "priority": "normal",
+      "activity_suggestion": "swimming_classes"
+    },
+    "173": {
+      "message_type": "vaccine_reminder_6mo",
+      "priority": "high",
+      "days_before": 7
+    },
+    "180": {
+      "message_type": "milestone_6mo",
+      "priority": "normal",
+      "activity_suggestion": "swimming_music"
+    },
+    "358": {
+      "message_type": "vaccine_reminder_12mo",
+      "priority": "high",
+      "days_before": 7
+    },
+    "365": {
+      "message_type": "first_birthday",
+      "priority": "high",
+      "activity_suggestion": "gym_classes"
+    },
+    "545": {
+      "message_type": "milestone_18mo",
+      "priority": "normal"
+    },
+    "730": {
+      "message_type": "second_birthday",
+      "priority": "normal",
+      "activity_suggestion": "daycare_consideration"
+    },
+    "912": {
+      "message_type": "preschool_intro",
+      "priority": "normal"
+    },
+    "1095": {
+      "message_type": "third_birthday",
+      "priority": "normal",
+      "activity_suggestion": "preschool_search"
+    },
+    "1460": {
+      "message_type": "fourth_birthday",
+      "priority": "normal"
+    },
+    "1643": {
+      "message_type": "kindergarten_reminder",
+      "priority": "high",
+      "action": "registration_opening"
+    }
+  },
+  "seasonal_triggers": {
+    "september_preschool_season": {
+      "condition": "child_age_days > 912 AND month == 'September'",
+      "message_type": "preschool_tour_season",
+      "priority": "high"
+    },
+    "december_application_deadline": {
+      "condition": "child_age_days > 912 AND month == 'December'",
+      "message_type": "preschool_deadline_warning",
+      "priority": "critical"
+    },
+    "february_kindergarten_registration": {
+      "condition": "child_age_days > 1460 AND month == 'February'",
+      "message_type": "kindergarten_registration_open",
+      "priority": "critical"
+    }
+  }
+}

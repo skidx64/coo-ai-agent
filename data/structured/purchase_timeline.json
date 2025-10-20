@@ -1,0 +1,76 @@
+{
+  "trimester_2": {
+    "weeks": "14-27",
+    "big_purchases": [
+      {
+        "item": "Crib",
+        "when": "Week 20-24",
+        "priority": "high",
+        "why": "Needs assembly, delivery delays common",
+        "budget": "$200-800",
+        "safety": "Look for JPMA certification"
+      },
+      {
+        "item": "Car seat",
+        "when": "Week 20-24",
+        "priority": "critical",
+        "why": "Hospital won't release baby without one",
+        "budget": "$150-400",
+        "safety": "Must be rear-facing infant seat"
+      },
+      {
+        "item": "Stroller",
+        "when": "Week 20-28",
+        "priority": "high",
+        "why": "Research takes time, try in store",
+        "budget": "$150-600",
+        "safety": "Check weight limits and brake system"
+      }
+    ],
+    "optional": [
+      "Changing table",
+      "Glider/rocker",
+      "Dresser",
+      "Baby monitor"
+    ]
+  },
+  "trimester_3": {
+    "weeks": "28-40",
+    "essentials": [
+      {
+        "category": "Hospital bag",
+        "when": "Week 32-36",
+        "items": [
+          "Newborn outfit for going home",
+          "Blanket",
+          "Car seat (already installed)",
+          "Your insurance card and ID",
+          "Comfortable clothes for you",
+          "Toiletries",
+          "Phone charger"
+        ]
+      },
+      {
+        "category": "Newborn supplies",
+        "when": "Week 32-36",
+        "items": [
+          "Newborn diapers (1-2 packs)",
+          "Wipes",
+          "Diaper cream",
+          "Bottles (if not breastfeeding exclusively)",
+          "Burp cloths",
+          "Swaddles",
+          "Infant nail clippers"
+        ]
+      }
+    ]
+  },
+  "newborn": {
+    "age": "0-3 months",
+    "can_wait": [
+      "Bouncer seat (after 1 month)",
+      "Play mat (after 2 months)",
+      "Toys (after 2 months)"
+    ]
+  }
+}

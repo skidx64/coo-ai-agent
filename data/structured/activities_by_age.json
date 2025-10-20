@@ -1,0 +1,177 @@
+{
+  "3-6_months": {
+    "swimming": {
+      "ready": true,
+      "class_type": "Parent-baby water bonding",
+      "benefits": [
+        "Motor development",
+        "Bonding",
+        "Water safety intro"
+      ],
+      "cost_range": "$20-30 per session",
+      "notes": "Baby must have good head control"
+    },
+    "music": {
+      "ready": true,
+      "class_type": "Music Together - Baby Class",
+      "benefits": [
+        "Language development",
+        "Sensory stimulation",
+        "Social interaction"
+      ],
+      "cost_range": "$100-150 for 10-week session"
+    }
+  },
+  "6-12_months": {
+    "swimming": {
+      "ready": true,
+      "class_type": "Infant swimming with parent",
+      "focus": "Water comfort, basic kicking",
+      "cost_range": "$25-35 per session"
+    },
+    "music": {
+      "ready": true,
+      "class_type": "Interactive music classes",
+      "focus": "Instrument exploration, rhythm",
+      "cost_range": "$120-180 for session"
+    },
+    "sensory_play": {
+      "ready": true,
+      "class_type": "Sensory exploration classes",
+      "benefits": [
+        "Fine motor skills",
+        "Cognitive development"
+      ],
+      "cost_range": "$15-25 per drop-in"
+    }
+  },
+  "12-24_months": {
+    "swimming": {
+      "ready": true,
+      "class_type": "Toddler swimming with parent",
+      "focus": "Independent floating, water safety",
+      "cost_range": "$30-40 per session"
+    },
+    "gym": {
+      "ready": true,
+      "class_type": "Parent-toddler gymnastics",
+      "benefits": [
+        "Gross motor skills",
+        "Balance",
+        "Coordination"
+      ],
+      "cost_range": "$80-120 per month"
+    },
+    "music": {
+      "ready": true,
+      "class_type": "Toddler music and movement",
+      "focus": "Dancing, instruments, songs",
+      "cost_range": "$100-150 per session"
+    }
+  },
+  "2-3_years": {
+    "swimming": {
+      "ready": true,
+      "class_type": "Independent toddler classes",
+      "focus": "Basic strokes, water confidence",
+      "cost_range": "$35-45 per session"
+    },
+    "gym": {
+      "ready": true,
+      "class_type": "Toddler tumbling and gymnastics",
+      "focus": "Strength, coordination, following directions",
+      "cost_range": "$90-130 per month"
+    },
+    "sports": {
+      "ready": true,
+      "options": [
+        "Soccer Tots",
+        "T-ball introduction"
+      ],
+      "benefits": [
+        "Teamwork basics",
+        "Following instructions",
+        "Physical activity"
+      ],
+      "cost_range": "$60-100 per season (6-8 weeks)"
+    },
+    "dance": {
+      "ready": true,
+      "class_type": "Creative movement and dance",
+      "benefits": [
+        "Coordination",
+        "Listening skills",
+        "Self-expression"
+      ],
+      "cost_range": "$70-100 per month"
+    },
+    "daycare_consideration": {
+      "ready": true,
+      "notes": "Many parents consider daycare at this age for socialization",
+      "search_timing": "Start looking 6-12 months before needed"
+    }
+  },
+  "3-5_years": {
+    "swimming": {
+      "ready": true,
+      "class_type": "Stroke development",
+      "focus": "Freestyle, backstroke basics",
+      "cost_range": "$40-60 per session"
+    },
+    "gym": {
+      "ready": true,
+      "class_type": "Gymnastics classes",
+      "levels": "Beginner to intermediate",
+      "cost_range": "$100-150 per month"
+    },
+    "sports": {
+      "ready": true,
+      "options": [
+        "Soccer",
+        "Basketball",
+        "T-ball",
+        "Karate"
+      ],
+      "benefits": [
+        "Teamwork",
+        "Discipline",
+        "Physical fitness"
+      ],
+      "cost_range": "$80-150 per season"
+    },
+    "arts": {
+      "ready": true,
+      "options": [
+        "Art classes",
+        "Music lessons",
+        "Dance"
+      ],
+      "benefits": [
+        "Creativity",
+        "Fine motor skills",
+        "Self-expression"
+      ],
+      "cost_range": "$60-120 per month"
+    },
+    "stem": {
+      "ready": true,
+      "options": [
+        "Coding for kids",
+        "Science clubs",
+        "Robotics intro"
+      ],
+      "benefits": [
+        "Problem-solving",
+        "Logic",
+        "STEM foundation"
+      ],
+      "cost_range": "$100-200 per session"
+    },
+    "preschool": {
+      "ready": true,
+      "search_timing": "Start looking 12-18 months before",
+      "application_season": "Fall/Winter before enrollment year",
+      "notes": "See separate preschool database"
+    }
+  }
+}
