@@ -666,5 +666,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 **Built with ❤️ for the AWS AI Agent Hackathon 2025**
 
 **Live Demo:** https://4p58s628h1.execute-api.us-east-1.amazonaws.com/app
-**GitHub:** https://github.com/your-username/coo
+
+**GitHub:** https://github.com/skidx64/coo-ai-agent
+
 **Demo Video:** [YouTube Link](https://youtu.be/your-demo-link)
