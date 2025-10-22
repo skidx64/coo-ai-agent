@@ -149,8 +149,6 @@ curl -X POST https://4p58s628h1.execute-api.us-east-1.amazonaws.com/api/workflow
   -d '{"child_age_months": 6, "concerns": "vaccine safety"}'
 ```
 
-**Video Demo:** [3-Minute Demo Video](https://youtu.be/your-demo-link)
-
 ## 🛠️ Technology Stack
 
 ### AWS Services (Current Implementation)
