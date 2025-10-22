@@ -12,6 +12,8 @@
 
 New parents face overwhelming information overload during critical moments—3am fever spikes, vaccine confusion, developmental concerns. They need instant, personalized, evidence-based guidance from a trusted source that understands their child's unique context.
 
+3.6M US babies are born every year. Their parents need 24/7 support. Coo delivers age-aware guidance, vaccine reminders, milestones as well as school/ daycare deadlines for parents with kids 5 years or younger
+
 **Statistics:**
 - 85% of new parents report feeling overwhelmed by conflicting health advice
 - Average wait time for pediatrician advice: 24-48 hours
@@ -19,7 +21,13 @@ New parents face overwhelming information overload during critical moments—3am
 
 ## 💡 Solution
 
-**Coo AI** is an autonomous AI agent powered by AWS Bedrock that provides personalized parenting guidance 24/7 through SMS and web interfaces. The agent uses:
+**Coo AI** is an autonomous AI agent powered by AWS Bedrock that provides personalized parenting guidance 24/7 through SMS and web interfaces.
+
+So how does coo stand out from the other ai agents 
+
+Coo maintains your child's profile and has all the information like age, allergies, milestones, etc so it gives personalized responses and also proactively reminds you of the upcoming vaccinations, side effects of a paricular vaccine, milestones, etc. It also integrates information about pediatricians, daycare and schools near by to remind you about the upcoming events.
+
+The agent uses:
 
 - **3-Tier Classification Pipeline**: Emergency detection → Keyword classification → Nova Lite AI fallback
 - **Reasoning LLM**: Claude 3.5 Haiku for context-aware decision-making
@@ -41,8 +49,6 @@ New parents face overwhelming information overload during critical moments—3am
 ## 🏗️ Architecture
 
 ### Current Implementation (Budget-Friendly)
-
-![Current Architecture](https://i.imgur.com/your-diagram-2.png)
 
 **Message Flow:**
 ```
@@ -95,8 +101,6 @@ Response → Twilio → Parent
 
 ### Production Scale Architecture
 
-![Scale Architecture](https://i.imgur.com/your-diagram-1.png)
-
 **Scaling from 1K → 100K daily messages:**
 
 | Component | Current | Scaled | Purpose |
@@ -146,125 +150,6 @@ curl -X POST https://4p58s628h1.execute-api.us-east-1.amazonaws.com/api/workflow
 ```
 
 **Video Demo:** [3-Minute Demo Video](https://youtu.be/your-demo-link)
-
-## 💡 Key Features
-
-### 1. Intelligent Message Classification
-
-**3-Tier Hybrid System:**
-
-```python
-# Tier 1: Emergency Keywords (0ms, free)
-if "can't breathe" in message:
-    return "🚨 EMERGENCY: Call 911 immediately!"
-
-# Tier 2: Domain Keywords (50ms, free) - 80% of queries
-if "vaccine" in message:
-    category = "vaccine"  # Routes to vaccine_info prompt
-
-# Tier 3: Nova Lite AI (200ms, $0.000003) - 20% ambiguous queries
-if category == "general" and len(message) > 10:
-    category = nova_lite_classify(message, child_context)
-```
-
-**Advantage:** 80% of messages use zero AI cost, only ambiguous queries trigger Nova Lite.
-
-### 2. Reasoning Engine (Claude 3.5 Haiku)
-
-**Age-Aware Symptom Triage:**
-
-```python
-def triage_symptoms(symptom: str, child_age_months: int):
-    # Different urgency thresholds by age
-    if child_age_months < 3 and "fever" in symptom:
-        urgency = "EMERGENCY"  # Fever in newborns is critical
-    elif child_age_months >= 12 and "fever" in symptom:
-        urgency = "ROUTINE"  # Fever in toddlers less urgent
-
-    # Reasoning: Analyzes symptoms + age + medical context
-    return {
-        "urgency": urgency,
-        "action": "Call pediatrician within 2 hours",
-        "reason": "Fever >100.4°F in infants under 3 months requires immediate evaluation"
-    }
-```
-
-**System Prompts:**
-- `general`: Warm, empathetic parenting advice
-- `symptom_triage`: Medical urgency assessment (EMERGENCY/URGENT/ROUTINE/HOME_CARE)
-- `vaccine_info`: CDC/AAP evidence-based vaccine information
-- `account_management`: Subscription and account help
-
-### 3. Agentic Workflows (Multi-Step Autonomous Execution)
-
-**Example: Vaccine Planning Workflow (5 Steps)**
-
-```python
-def vaccine_planning_workflow(child_age_months: int, concerns: str):
-    # Step 1: Calculate vaccine schedule
-    due_now = get_vaccines_for_age(child_age_months)
-
-    # Step 2: Query knowledge base (RAG)
-    context = rag_service.query("vaccines for {age} months")
-
-    # Step 3: Generate personalized plan
-    plan = ai_service.generate_plan(due_now, context, concerns)
-
-    # Step 4: Address parent concerns with AI
-    if concerns:
-        concern_response = ai_service.address_concern(concerns, context)
-
-    # Step 5: Create timeline of upcoming vaccines
-    timeline = generate_vaccine_timeline(child_age_months)
-
-    return {
-        "vaccines_due_now": due_now,
-        "plan": plan,
-        "concern_addressed": concern_response,
-        "upcoming_timeline": timeline,
-        "workflow_steps": 5
-    }
-```
-
-**Available Workflows:**
-1. **Pregnancy Guidance** - Trimester info, milestones, upcoming appointments
-2. **Vaccine Planning** - CDC schedule, education, timeline
-3. **Milestone Assessment** - Developmental evaluation, red flags, activities
-4. **Activity Recommendations** - Age-appropriate activities, weekly plans
-5. **Preschool Readiness** - Evaluation, preparation plan, school selection
-
-### 4. RAG Knowledge Base
-
-**70+ Curated Documents:**
-- `knowledge-base/vaccines/` - DTaP, MMR, PCV, Hib, Rotavirus, etc.
-- `knowledge-base/symptoms/` - Fever, common cold, breastfeeding, nutrition
-- `knowledge-base/development/` - Milestones for 2mo, 4mo, 6mo, 9mo, 1yr, 18mo, 2yr, 3yr, 4yr, 5yr
-- `knowledge-base/pregnancy/` - Weekly updates (weeks 14, 20, 24, 27, 32, 36, 38)
-- `knowledge-base/education/` - Preschool selection, kindergarten registration
-
-**RAG Pipeline:**
-```
-User Question → Enhanced with child age → ChromaDB similarity search
-  → Top 5 relevant documents → Context injection → Claude reasoning
-  → Personalized answer with sources
-```
-
-### 5. Conversation Memory
-
-**Context-Aware Responses:**
-```python
-conversation_history = [
-    {"role": "user", "content": "My baby has a fever"},
-    {"role": "assistant", "content": "How high is the temperature?"},
-    {"role": "user", "content": "103.2°F"}
-]
-
-# AI now has full context:
-# - Child: Emma, 2 months old
-# - Previous messages: fever mentioned
-# - Current question: temperature 103.2°F
-# → Response: "103.2°F in a 2-month-old is URGENT. Call pediatrician NOW."
-```
 
 ## 🛠️ Technology Stack
 
@@ -348,11 +233,6 @@ coo/
 │   └── terraform/                 # Terraform configs (future)
 ├── requirements.txt               # Python dependencies
 ├── requirements-lambda.txt        # Lambda-optimized deps
-├── deploy_lambda.bat/.sh          # Deployment scripts
-├── AWS_DEPLOYMENT_PLAN.md         # Full deployment guide
-├── CLOUDSHELL_DEPLOYMENT.md       # CloudShell quickstart
-├── QUICK_START_AWS.md             # 30-minute setup
-├── DIAGRAM_PROMPTS.md             # Architecture diagram prompts
 └── README.md                      # This file
 ```
 
@@ -536,103 +416,13 @@ pytest tests/test_workflows.py::test_vaccine_planning_workflow
 # Test AI service
 pytest tests/test_ai_service.py
 ```
-
-## 📈 Performance & Optimization
-
-### Cost Optimization
-
-**Current (Budget Mode):**
-```
-1,000 messages/day = $3/month
-
-Breakdown:
-- Nova Lite classification (20% of msgs): $0.02
-- Claude 3.5 Haiku responses: $3.00
-- Lambda: Free tier
-- API Gateway: Free tier
-- SQLite: Free
-Total: ~$3/month
-```
-
-**Production (Optimized):**
-```
-10,000 messages/day = $58/month
-
-Breakdown:
-- Nova Lite classification: $0.18
-- Claude 3.5 Haiku: $30.00
-- RDS PostgreSQL (t3.micro): $15.00
-- API Gateway: $1.00
-- Lambda: Free tier
-- CloudWatch: $2.00
-- Twilio SMS (1000 msgs): $10.00
-Total: ~$58/month
-```
-
-### Performance Metrics
-
-| Metric | Current | Target |
-|--------|---------|--------|
-| **End-to-end latency** | 2.5s | < 3s ✅ |
-| **Classification time** | 250ms | < 300ms ✅ |
-| **RAG retrieval** | 150ms | < 200ms ✅ |
-| **Claude response** | 1.8s | < 2s ✅ |
-| **Database query** | 50ms | < 100ms ✅ |
-| **Uptime** | 99.5% | > 99% ✅ |
-
-### Scaling Strategy
-
-**Phase 1: 0-10K messages/day (Current)**
-- Single Lambda function
-- SQLite or small RDS
-- On-demand Bedrock
-
-**Phase 2: 10K-100K messages/day**
-- Multiple Lambda functions (API, workflow, scheduler)
-- RDS Multi-AZ with read replicas
-- Bedrock provisioned throughput
-- ElastiCache Redis for caching
-
-**Phase 3: 100K-1M messages/day**
-- API Gateway with rate limiting
-- DynamoDB for conversation history
-- SQS for async processing
-- CloudFront CDN for static assets
-- X-Ray for distributed tracing
-
 ## 🎥 Demo Video
 
-**Watch the 3-minute demo:** [YouTube Link](https://youtu.be/your-demo-link)
-
-**Demo highlights:**
-1. **Emergency Detection** (0:00-0:30) - "Can't breathe" → Immediate 911 message
-2. **Symptom Triage** (0:30-1:00) - Fever in 2-month-old → URGENT response
-3. **Vaccine Workflow** (1:00-1:45) - 5-step autonomous execution
-4. **AWS Architecture** (1:45-2:15) - Bedrock + Nova + Lambda + API Gateway
-5. **Live Demo** (2:15-3:00) - Real-time SMS interaction
-
-## 📄 Documentation
-
-- **[AWS_DEPLOYMENT_PLAN.md](AWS_DEPLOYMENT_PLAN.md)** - 3-day deployment sprint guide
-- **[CLOUDSHELL_DEPLOYMENT.md](CLOUDSHELL_DEPLOYMENT.md)** - Step-by-step CloudShell deployment
-- **[QUICK_START_AWS.md](QUICK_START_AWS.md)** - 30-minute quick start
-- **[DIAGRAM_PROMPTS.md](DIAGRAM_PROMPTS.md)** - Architecture diagram generation prompts
-- **[DEPLOYMENT_SUMMARY.md](DEPLOYMENT_SUMMARY.md)** - What changed for AWS deployment
-- **[BUDGET_AWS_DEPLOYMENT.md](BUDGET_AWS_DEPLOYMENT.md)** - Budget-friendly deployment
-- **[NOVA_LITE_INTEGRATION.md](NOVA_LITE_INTEGRATION.md)** - Nova Lite classification details
-
-## 🔐 Security
-
-- **JWT Authentication** - Secure family account access
-- **IAM Roles** - Least-privilege Lambda execution roles
-- **Environment Variables** - Secrets managed via Lambda env vars (prod: AWS Secrets Manager)
-- **Input Validation** - Pydantic schemas validate all inputs
-- **Rate Limiting** - API Gateway throttling prevents abuse
-- **CORS** - Configured for frontend domain only
+**Watch the 3-minute demo:** [YouTube Link](https://www.youtube.com/watch?v=PFSqnPIRLio)
 
 ## 🤝 Contributing
 
-This project was built for the AWS AI Agent Hackathon 2025. Contributions are welcome!
+This project was built for the AWS AI Agent Hackathon 2025. 
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -652,19 +442,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Mayo Clinic** - For medical symptom information
 - **Twilio** - For SMS integration
 
-## 📞 Support
-
-**Issues?** Open a GitHub issue with:
-- Error message from CloudWatch logs
-- Steps to reproduce
-- Expected vs actual behavior
-
-**Questions?** See [QUICK_START_AWS.md](QUICK_START_AWS.md) for troubleshooting.
-
 ---
 
-**Built with ❤️ for the AWS AI Agent Hackathon 2025**
-
 **Live Demo:** https://4p58s628h1.execute-api.us-east-1.amazonaws.com/app
-**GitHub:** https://github.com/your-username/coo
-**Demo Video:** [YouTube Link](https://youtu.be/your-demo-link)
+**Demo Video:** [YouTube Link](https://www.youtube.com/watch?v=PFSqnPIRLio)
