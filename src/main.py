@@ -1,5 +1,5 @@
 """Main FastAPI application for Coo - AI Parenting Companion."""
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -41,6 +41,17 @@ app.include_router(demo.router)  # Demo endpoint with token protection
 async def startup_event():
     """Initialize database on startup."""
     init_db()
+
+    # Seed demo data if SKIP_AUTH is enabled
+    if os.getenv("SKIP_AUTH", "false").lower() == "true":
+        from .seed_demo_data import seed_demo_data
+        try:
+            family_id = seed_demo_data()
+            print(f"[DEMO] Demo data seeded. Family ID: {family_id}")
+            print(f"[DEMO] Auth is BYPASSED - demo mode enabled")
+        except Exception as e:
+            print(f"[WARN] Error seeding demo data: {e}")
+
     print(f"[OK] {settings.app_name} started successfully")
     print(f"[DB] Database: {settings.database_url}")
     print(f"[SMS] Twilio configured: {bool(settings.twilio_account_sid)}")

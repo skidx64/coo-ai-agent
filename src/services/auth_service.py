@@ -1,6 +1,7 @@
 """Authentication service for user signup, login, and verification."""
 import secrets
 import random
+import os
 from datetime import datetime, timedelta
 from typing import Optional
 import bcrypt
@@ -10,6 +11,10 @@ from jose import JWTError, jwt
 SECRET_KEY = secrets.token_urlsafe(32)  # In production, load from environment
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
+
+# Demo mode configuration
+SKIP_AUTH = os.getenv("SKIP_AUTH", "false").lower() == "true"
+DEMO_FAMILY_ID = int(os.getenv("DEMO_FAMILY_ID", "1"))
 
 
 def hash_password(password: str) -> str:
@@ -53,7 +58,18 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 
 
 def verify_token(token: str) -> Optional[dict]:
-    """Verify and decode a JWT token."""
+    """Verify and decode a JWT token.
+
+    If SKIP_AUTH is enabled, returns a mock payload with demo family_id.
+    """
+    if SKIP_AUTH:
+        # Return mock payload for demo mode
+        return {
+            "sub": "demo@cooai.test",
+            "family_id": DEMO_FAMILY_ID,
+            "exp": (datetime.utcnow() + timedelta(days=365)).timestamp()
+        }
+
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
